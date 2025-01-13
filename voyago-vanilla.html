@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voyago - Tu próxima aventura</title>
+    <style>
+        :root {
+            --primary: #4A90E2;
+            --accent: #40E0D0;
+            --gray: #666666;
+            --light-gray: #F5F5F5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-gray);
+            padding-bottom: 70px;
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--primary);
+            color: white;
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: 1.5rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-top: 60px;
+            padding: 1rem;
+        }
+
+        /* Search Bar */
+        .search-container {
+            position: relative;
+            margin: 1rem 0;
+        }
+
+        .search-bar {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            font-size: 1rem;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+
+        /* Categories */
+        .categories {
+            margin: 2rem 0;
+        }
+
+        .categories h2 {
+            margin-bottom: 1rem;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            text-align: center;
+        }
+
+        .category-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .category-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .category-icon svg {
+            width: 25px;
+            height: 25px;
+            fill: white;
+        }
+
+        /* Destinations */
+        .destinations {
+            margin: 2rem 0;
+        }
+
+        .destination-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .destination-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .destination-info {
+            padding: 1rem;
+        }
+
+        .destination-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .destination-title {
+            font-weight: bold;
+            margin-bottom: 0.25rem;
+        }
+
+        .destination-location {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .destination-price {
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .rating-star {
+            color: #FFD700;
+        }
+
+        /* Experience Cards */
+        .experiences {
+            margin: 2rem 0;
+
+        }
+
+        .experience-scroll {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+            scrollbar-width: none;
+        }
+
+        .experience-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .experience-card {
+            flex: 0 0 200px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .experience-image {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+        }
+
+        .experience-info {
+            padding: 0.75rem;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: white;
+            border-top: 1px solid #ddd;
+            padding: 0.75rem;
+            display: flex;
+            justify-content: space-around;
+            z-index: 100;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--gray);
+            text-decoration: none;
+            font-size: 0.75rem;
+        }
+
+        .nav-item.active {
+            color: var(--primary);
+        }
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+            margin-bottom: 0.25rem;
+        }
+
+ /* Reels Section */
+        .reels {
+            margin: 2rem 0;
+        }
+        
+        .reels-scroll {
+            display: flex;
+            gap: 1rem;
+            overflow-x: auto;
+            padding-bottom: 1rem;
+            padding-top: 1rem;
+            scrollbar-width: none;
+        }
+
+        .reels-scroll::-webkit-scrollbar {
+            display: none;
+        }
+
+        .reel-card {
+            flex: 0 0 200px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        .reel-card video {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .reel-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            color: white;
+            padding: 1rem;
+        }
+
+        .reel-title {
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .reel-cta {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            text-decoration: none;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+        /* AI Assistant Button */
+        .ai-button {
+            position: fixed;
+            right: 1rem;
+            bottom: 80px;
+            width: 50px;
+            height: 50px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>Voyago</h1>
+        <svg viewBox="0 0 24 24" width="24" height="24">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" fill="white"/>
+        </svg>
+    </header>
+
+    <main class="main-content">
+        <div class="search-container">
+            <input type="text" class="search-bar" placeholder="¿A dónde quieres ir?">
+            <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20">
+                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" fill="currentColor"/>
+            </svg>
+        </div>
+
+        <section class="categories">
+            <h2>Explora</h2>
+            <div class="categories-grid">
+                <div class="category-item">
+                    <div class="category-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M21 16V4H3v12h18m0-14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4c0-1.11.89-2 2-2h18M5 6h9v5H5V6m10 0h4v2h-4V6m4 3v5h-4V9h4M5 12h4v2H5v-2m5 0h4v2h-4v-2z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <span>Vuelos</span>
+                </div>
+                <!-- Otros íconos de categorías similares -->
+            </div>
+        </section>
+
+        <section class="destinations">
+            <h2>Destinos destacados</h2>
+            <div id="destinations-container" style="padding-top: 1rem;"></div>
+        </section>
+
+        <section class="experiences">
+            <h2>Experiencias populares</h2>
+            <div class="experience-scroll" id="experiences-container"></div>
+        </section>
+        <section class="reels">
+            <h2>Descubre más destinos</h2>
+            <div class="reels-scroll" id="reels-container"></div>
+        </section>
+    </main>
+
+    <nav class="bottom-nav">
+        <a href="#" class="nav-item active">
+            <svg viewBox="0 0 24 24">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z" fill="currentColor"/>
+            </svg>
+            <span>Inicio</span>
+        </a>
+        <!-- Otros íconos de navegación similares -->
+    </nav>
+
+    <button class="ai-button">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+            <path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z" fill="white"/>
+        </svg>
+    </button>
+
+    <script>
+        // Intersection Observer para los videos
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.play();
+                } else {
+                    entry.target.pause();
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Datos de ejemplo
+        const destinations = [
+            {
+                id: 1,
+                city: 'París',
+                country: 'Francia',
+                price: 599,
+                rating: 4.8,
+                reviews: 2450,
+                image: 'https://media.staticontent.com/media/pictures/71424c0b-eed4-4ddf-92bd-428659882b06/375x450?quality=80&dpr=2'
+                
+          
+            },
+            {
+                id: 2,
+                city: 'Madrid',
+                country: 'España',
+                price: 899,
+                rating: 4.9,
+                reviews: 1890,
+                image: 'https://media.staticontent.com/media/pictures/75d701e8-03d4-46ca-bc36-593602cad27e/375x450?quality=80&dpr=2'
+            }
+        ];
+
+        const experiences = [
+            {
+                id: 1,
+                title: 'Visita a la Sagrada Familia',
+                location: 'Barcelona',
+                price: 85,
+                rating: 4.7,
+                image: 'https://media.staticontent.com/media/pictures/a835916d-e276-405c-84ea-8390fc8ca87e/300x200'
+            },
+            {
+                id: 2,
+                title: 'Paseo en góndola',
+                location: 'Venecia',
+                price: 74,
+                rating: 4.6,
+                image: 'https://media.staticontent.com/media/pictures/4c98fe3a-49dd-4f31-a81a-3c18d446ddc2/300x200'
+            },
+            {
+                id: 2,
+                title: 'Museo F.C. Barcelona',
+                location: 'Barcelona',
+                price: 74,
+                rating: 4.6,
+                image: 'https://media.staticontent.com/media/pictures/46614f4c-72b0-4c0e-957e-fdb659f0b403/300x200'
+            },
+            {
+                id: 2,
+                title: 'Bus turístico Barcelona City Tour -Hop on Hop off',
+                location: 'Barcelona',
+                price: 74,
+                rating: 4.6,
+                image: 'https://media.staticontent.com/media/pictures/af66ffd2-827f-4337-a2db-f2c9d56fde10/300x200'
+            }
+        ];
+
+        // Render destinations
+        const destinationsContainer = document.getElementById('destinations-container');
+        destinations.forEach(dest => {
+            const destCard = document.createElement('div');
+            destCard.className = 'destination-card';
+            destCard.innerHTML = `
+                <img src="${dest.image}" alt="${dest.city}" class="destination-image">
+                <div class="destination-info">
+                    <div class="destination-header">
+                        <div>
+                            <h3 class="destination-title">${dest.city}</h3>
+                            <p class="destination-location">${dest.country}</p>
+                        </div>
+                        <div>
+                            <p class="destination-price">Desde $${dest.price}</p>
+                            <div class="rating">
+                                <span class="rating-star">★</span>
+                                <span>${dest.rating}</span>
+                                <span>(${dest.reviews})</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            destinationsContainer.appendChild(destCard);
+        });
+
+        // Render experiences
+        const experiencesContainer = document.getElementById('experiences-container');
+        experiences.forEach(exp => {
+            const expCard = document.createElement('div');
+            expCard.className = 'experience-card';
+            expCard.innerHTML = `
+                <img src="${exp.image}" alt="${exp.title}" class="experience-image">
+                <div class="experience-info">
+                    <h3 class="destination-title">${exp.title}</h3>
+                    <p class="destination-location">${exp.location}</p>
+                    <div class="rating">
+                        <span class="destination-price">$${exp.price}</span>
+                        <div class="rating">
+                            <span class="rating-star">★</span>
+                            <span>${exp.rating}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+            experiencesContainer.appendChild(expCard);
+        });
+
+         // Datos de reels
+        const reels = [
+            {
+                id: "RLAPP_MX_CUN_XS_holbox",
+                title: "Conocé Holbox",
+                video: "https://media.staticontent.com/media/documents/683b7593-35d7-40e2-a45d-79f8fc4ee572",
+                link: "https://www.despegar.com.ar/actividades/ih1/actividades-en-isla+holbox"
+            },
+            {
+                id: "RLAPP_MX_CUN_INSPI_espera",
+                title: "Cancún te espera",
+                video: "https://media.staticontent.com/media/documents/dfe8b066-8511-4fef-adda-63ad5d3d4f02",
+                link: "https://www.despegar.com.ar/lugares-turisticos/cancun"
+            },
+            {
+                id: "RLAPP_MX_CUN_ADV_bbb",
+                title: "Bueno, bonito y barato",
+                video: "https://media.staticontent.com/media/documents/9d3c4ed4-b96f-4473-874b-87996f9d6dec",
+                link: "https://www.despegar.com.ar/lugares-turisticos/cancun"
+            }
+        ];
+
+        // Render reels
+        const reelsContainer = document.getElementById('reels-container');
+        reels.forEach(reel => {
+            const reelCard = document.createElement('div');
+            reelCard.className = 'reel-card';
+            reelCard.innerHTML = `
+                <video 
+                    src="${reel.video}"
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                >
+                </video>
+                <div class="reel-info">
+                    <h3 class="reel-title">${reel.title}</h3>
+                    <a href="${reel.link}" class="reel-cta">Ver más</a>
+                </div>
+            `;
+            
+            const video = reelCard.querySelector('video');
+            videoObserver.observe(video);
+            
+            reelsContainer.appendChild(reelCard);
+        });
+
+    </script>
+</body>
+</html>
