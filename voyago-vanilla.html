@@ -120,6 +120,13 @@
             overflow: hidden;
             margin-bottom: 1rem;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+        }
+
+        .destination-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .destination-image {
@@ -151,6 +158,31 @@
         .destination-price {
             color: var(--primary);
             font-weight: bold;
+        }
+
+        .destination-excerpt {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: var(--gray);
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .destination-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .destination-tag {
+            background-color: var(--light-gray);
+            color: var(--gray);
+            padding: 0.25rem 0.5rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
         }
 
         .rating {
@@ -234,7 +266,7 @@
             margin-bottom: 0.25rem;
         }
 
- /* Reels Section */
+        /* Reels Section */
         .reels {
             margin: 2rem 0;
         }
@@ -293,6 +325,7 @@
             font-size: 0.875rem;
             margin-top: 0.5rem;
         }
+        
         /* AI Assistant Button */
         .ai-button {
             position: fixed;
@@ -309,6 +342,28 @@
             color: white;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
             cursor: pointer;
+        }
+        
+        /* Loading indicator */
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: var(--gray);
+        }
+        
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
 </head>
@@ -339,13 +394,41 @@
                     </div>
                     <span>Vuelos</span>
                 </div>
-                <!-- Otros íconos de categorías similares -->
+                <div class="category-item">
+                    <div class="category-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 7H11V1H13V5H17V1H19V7M7 19V5H9V3H7V1H5V3H3V5H5V19H3V21H5V23H7V21H9V19H7M19 9H11V11H19V9M19 13H11V15H19V13Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <span>Hoteles</span>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M18,18.5A1.5,1.5 0 0,1 16.5,17A1.5,1.5 0 0,1 18,15.5A1.5,1.5 0 0,1 19.5,17A1.5,1.5 0 0,1 18,18.5M19.5,9.5L21.46,12H17V9.5M6,18.5A1.5,1.5 0 0,1 4.5,17A1.5,1.5 0 0,1 6,15.5A1.5,1.5 0 0,1 7.5,17A1.5,1.5 0 0,1 6,18.5M20,8L23,12V17H21A3,3 0 0,1 18,20A3,3 0 0,1 15,17H9A3,3 0 0,1 6,20A3,3 0 0,1 3,17H1V6C1,4.89 1.89,4 3,4H17V8H20M8,6V9H5V11H8V14H10V11H13V9H10V6H8Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <span>Transportes</span>
+                </div>
+                <div class="category-item">
+                    <div class="category-icon">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M20,11H4V8H20M20,15H13V13H20M20,19H13V17H20M11,19H4V13H11M20.33,4.67L18.67,3L17,4.67L15.33,3L13.67,4.67L12,3L10.33,4.67L8.67,3L7,4.67L5.33,3L3.67,4.67L2,3V19A2,2 0 0,0 4,21H20A2,2 0 0,0 22,19V3L20.33,4.67Z" fill="currentColor"/>
+                        </svg>
+                    </div>
+                    <span>Paquetes</span>
+                </div>
             </div>
         </section>
 
         <section class="destinations">
             <h2>Destinos destacados</h2>
-            <div id="destinations-container" style="padding-top: 1rem;"></div>
+            <div id="destinations-container" style="padding-top: 1rem;">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Cargando destinos...</p>
+                </div>
+            </div>
         </section>
 
         <section class="experiences">
@@ -365,7 +448,24 @@
             </svg>
             <span>Inicio</span>
         </a>
-        <!-- Otros íconos de navegación similares -->
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24">
+                <path d="M17,18C15.89,18 15,18.89 15,20A2,2 0 0,0 17,22A2,2 0 0,0 19,20C19,18.89 18.1,18 17,18M1,2V4H3L6.6,11.59L5.24,14.04C5.09,14.32 5,14.65 5,15A2,2 0 0,0 7,17H19V15H7.42A0.25,0.25 0 0,1 7.17,14.75C7.17,14.7 7.18,14.66 7.2,14.63L8.1,13H15.55C16.3,13 16.96,12.58 17.3,11.97L20.88,5.5C20.95,5.34 21,5.17 21,5A1,1 0 0,0 20,4H5.21L4.27,2M7,18C5.89,18 5,18.89 5,20A2,2 0 0,0 7,22A2,2 0 0,0 9,20C9,18.89 8.1,18 7,18Z" fill="currentColor"/>
+            </svg>
+            <span>Reservas</span>
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24">
+                <path d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" fill="currentColor"/>
+            </svg>
+            <span>Ajustes</span>
+        </a>
+        <a href="#" class="nav-item">
+            <svg viewBox="0 0 24 24">
+                <path d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" fill="currentColor"/>
+            </svg>
+            <span>Perfil</span>
+        </a>
     </nav>
 
     <button class="ai-button">
@@ -386,30 +486,104 @@
             });
         }, { threshold: 0.5 });
 
-        // Datos de ejemplo
-        const destinations = [
-            {
-                id: 1,
-                city: 'París',
-                country: 'Francia',
-                price: 599,
-                rating: 4.8,
-                reviews: 2450,
-                image: 'https://media.staticontent.com/media/pictures/71424c0b-eed4-4ddf-92bd-428659882b06/375x450?quality=80&dpr=2'
-                
-          
-            },
-            {
-                id: 2,
-                city: 'Madrid',
-                country: 'España',
-                price: 899,
-                rating: 4.9,
-                reviews: 1890,
-                image: 'https://media.staticontent.com/media/pictures/75d701e8-03d4-46ca-bc36-593602cad27e/375x450?quality=80&dpr=2'
+        // Fetch destinos desde la API
+        async function fetchDestinations() {
+            try {
+                const response = await fetch('https://promociones-aereas.com.ar/wp-json/wp/v2/posts?per_page=10&featured=true');
+                if (!response.ok) {
+                    throw new Error('Error al obtener los destinos');
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Error:', error);
+                return [];
             }
-        ];
+        }
 
+        // Renderizar los destinos
+        async function renderDestinations() {
+            const destinationsContainer = document.getElementById('destinations-container');
+            destinationsContainer.innerHTML = `
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Cargando destinos...</p>
+                </div>
+            `;
+            
+            try {
+                const destinations = await fetchDestinations();
+                
+                if (destinations.length === 0) {
+                    destinationsContainer.innerHTML = '<p>No se encontraron destinos disponibles.</p>';
+                    return;
+                }
+                
+                destinationsContainer.innerHTML = '';
+                
+                destinations.forEach(dest => {
+                    // Extraer etiquetas de categorías
+                    const categories = dest.categories.slice(0, 2); // Solo mostrar 2 categorías máximo
+                    
+                    // Crear el elemento de card de destino
+                    const destCard = document.createElement('div');
+                    destCard.className = 'destination-card';
+                    destCard.addEventListener('click', () => {
+                        window.location.href = dest.link;
+                    });
+                    
+                    // Determinar la imagen a mostrar
+                    let imageUrl = '';
+                    if (dest.fimg_url && dest.fimg_url.large) {
+                        imageUrl = dest.fimg_url.large;
+                    } else if (dest.share_image && dest.share_image.medium) {
+                        imageUrl = dest.share_image.medium;
+                    } else {
+                        // Imagen por defecto si no hay imagen disponible
+                        imageUrl = 'https://media.staticontent.com/media/pictures/71424c0b-eed4-4ddf-92bd-428659882b06/375x450?quality=80&dpr=2';
+                    }
+                    
+                    // Extraer el título limpio (sin etiquetas HTML)
+                    const titleElement = document.createElement('div');
+                    titleElement.innerHTML = dest.title.rendered;
+                    const cleanTitle = titleElement.textContent;
+                    
+                    // Extraer el extracto limpio (sin etiquetas HTML)
+                    const excerptElement = document.createElement('div');
+                    excerptElement.innerHTML = dest.excerpt.rendered;
+                    const cleanExcerpt = excerptElement.textContent;
+                    
+                    // HTML interno de la card
+                    destCard.innerHTML = `
+                        <img src="${imageUrl}" alt="${cleanTitle}" class="destination-image">
+                        <div class="destination-info">
+                            <div class="destination-header">
+                                <div>
+                                    <h3 class="destination-title">${cleanTitle}</h3>
+                                    <p class="destination-location">Argentina</p>
+                                </div>
+                            </div>
+                            <p class="destination-excerpt">${cleanExcerpt}</p>
+                            <div class="destination-tags">
+                                <span class="destination-tag">Paquete</span>
+                                <span class="destination-tag">Vuelo + Hotel</span>
+                            </div>
+                        </div>
+                    `;
+                    
+                    destinationsContainer.appendChild(destCard);
+                });
+            } catch (error) {
+                console.error('Error al renderizar destinos:', error);
+                destinationsContainer.innerHTML = '<p>Error al cargar los destinos. Intente nuevamente más tarde.</p>';
+            }
+        }
+
+        // Cargar destinos cuando se carga la página
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDestinations();
+        });
+
+        // Datos de experiencias
         const experiences = [
             {
                 id: 1,
@@ -428,7 +602,7 @@
                 image: 'https://media.staticontent.com/media/pictures/4c98fe3a-49dd-4f31-a81a-3c18d446ddc2/300x200'
             },
             {
-                id: 2,
+                id: 3,
                 title: 'Museo F.C. Barcelona',
                 location: 'Barcelona',
                 price: 74,
@@ -436,8 +610,8 @@
                 image: 'https://media.staticontent.com/media/pictures/46614f4c-72b0-4c0e-957e-fdb659f0b403/300x200'
             },
             {
-                id: 2,
-                title: 'Bus turístico Barcelona City Tour -Hop on Hop off',
+                id: 4,
+                title: 'Bus turístico Barcelona City Tour',
                 location: 'Barcelona',
                 price: 74,
                 rating: 4.6,
@@ -445,34 +619,7 @@
             }
         ];
 
-        // Render destinations
-        const destinationsContainer = document.getElementById('destinations-container');
-        destinations.forEach(dest => {
-            const destCard = document.createElement('div');
-            destCard.className = 'destination-card';
-            destCard.innerHTML = `
-                <img src="${dest.image}" alt="${dest.city}" class="destination-image">
-                <div class="destination-info">
-                    <div class="destination-header">
-                        <div>
-                            <h3 class="destination-title">${dest.city}</h3>
-                            <p class="destination-location">${dest.country}</p>
-                        </div>
-                        <div>
-                            <p class="destination-price">Desde $${dest.price}</p>
-                            <div class="rating">
-                                <span class="rating-star">★</span>
-                                <span>${dest.rating}</span>
-                                <span>(${dest.reviews})</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `;
-            destinationsContainer.appendChild(destCard);
-        });
-
-        // Render experiences
+        // Render experiencias
         const experiencesContainer = document.getElementById('experiences-container');
         experiences.forEach(exp => {
             const expCard = document.createElement('div');
@@ -494,7 +641,7 @@
             experiencesContainer.appendChild(expCard);
         });
 
-         // Datos de reels
+        // Datos de reels
         const reels = [
             {
                 id: "RLAPP_MX_CUN_XS_holbox",
@@ -516,6 +663,7 @@
             }
         ];
 
+        // Render reels
         // Render reels
         const reelsContainer = document.getElementById('reels-container');
         reels.forEach(reel => {
