@@ -1,0 +1,1807 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Buscador de Vuelos - A Rolar Viajes</title>
+    <style>
+        :root {
+            /* White-label Theme Variables */
+            --primary-color: #2563eb;
+            --secondary-color: #f97316;
+            --accent-color: #64748b;
+            --success-color: #059669;
+            --danger-color: #dc2626;
+            --warning-color: #f59e0b;
+            
+            /* Neutral Colors */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --bg-tertiary: #f1f5f9;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --border-hover: var(--primary-color);
+            
+            /* Gradients */
+            --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            --gradient-secondary: linear-gradient(135deg, var(--secondary-color) 0%, var(--warning-color) 100%);
+            
+            /* Shadows */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            
+            /* Brand */
+            --brand-name: "A Rolar Viajes";
+            --brand-logo: "✈️";
+        }
+        
+        /* Theme Variations - Easily customizable */
+        [data-theme="arolar"] {
+            --primary-color: #2563eb;
+            --secondary-color: #f97316;
+            --accent-color: #64748b;
+        }
+        
+        [data-theme="nature"] {
+            --primary-color: #059669;
+            --secondary-color: #0ea5e9;
+            --accent-color: #475569;
+        }
+        
+        [data-theme="luxury"] {
+            --primary-color: #7c3aed;
+            --secondary-color: #f59e0b;
+            --accent-color: #374151;
+        }
+        
+        [data-theme="sunset"] {
+            --primary-color: #dc2626;
+            --secondary-color: #f97316;
+            --accent-color: #7c2d12;
+        }
+        
+        [data-theme="ocean"] {
+            --primary-color: #0ea5e9;
+            --secondary-color: #06b6d4;
+            --accent-color: #0f766e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background: var(--gradient-primary);
+            min-height: 100vh;
+            color: white;
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+            width: 100%;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        .theme-selector {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1001;
+            display: flex;
+            gap: 8px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .theme-btn {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            border: 2px solid rgba(255,255,255,0.3);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .theme-btn:hover {
+            transform: scale(1.1);
+            border-color: rgba(255,255,255,0.6);
+        }
+        
+        .theme-btn.active {
+            border-color: white;
+            box-shadow: 0 0 0 2px rgba(255,255,255,0.3);
+        }
+        
+        .theme-arolar { background: linear-gradient(45deg, #2563eb, #f97316); }
+        .theme-nature { background: linear-gradient(45deg, #059669, #0ea5e9); }
+        .theme-luxury { background: linear-gradient(45deg, #7c3aed, #f59e0b); }
+        .theme-sunset { background: linear-gradient(45deg, #dc2626, #f97316); }
+        .theme-ocean { background: linear-gradient(45deg, #0ea5e9, #06b6d4); }
+        
+        .header {
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            font-size: 1.5em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .brand-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+            border: 1px solid rgba(255,255,255,0.2);
+            margin-top: 8px;
+        }
+        
+        .trip-type-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            padding: 0 20px;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 20px;
+            background: transparent;
+            color: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .tab.active {
+            background: white;
+            color: var(--primary-color);
+            border-color: white;
+        }
+        
+        .search-container {
+            padding: 0 20px;
+            margin-bottom: 20px;
+        }
+        
+        .search-card {
+            background: var(--bg-primary);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .location-section {
+            margin-bottom: 16px;
+            position: relative;
+        }
+        
+        .location-input {
+            display: flex;
+            align-items: center;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            margin-bottom: 12px;
+            background: var(--bg-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .location-input:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .location-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .location-content {
+            flex: 1;
+        }
+        
+        .location-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .location-value {
+            font-size: 16px;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+        
+        .swap-button {
+            position: absolute;
+            right: 32px;
+            background: var(--bg-primary);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            z-index: 10;
+            box-shadow: var(--shadow-md);
+        }
+        
+        .swap-button:hover {
+            border-color: var(--primary-color);
+            background: var(--primary-color);
+            color: white;
+            transform: rotate(180deg);
+        }
+        
+        .dates-section {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .date-input {
+            flex: 1;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--bg-secondary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .date-input:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .date-value {
+            font-size: 16px;
+            color: var(--text-primary);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+        
+        .autocomplete-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            -webkit-flex: 1;
+            flex: 1;
+        }
+        
+        .autocomplete-dropdown {
+            position: relative;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            height: 400px;
+            overflow-y: auto;
+            z-index: 1000;
+            display: block;
+            box-shadow: var(--shadow-md);
+            margin-top: 12px;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .autocomplete-item {
+            padding: 16px;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border-color);
+            transition: background 0.2s ease;
+            color: var(--text-primary);
+            min-height: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .autocomplete-item:hover {
+            background: var(--bg-secondary);
+        }
+        
+        .autocomplete-item:last-child {
+            border-bottom: none;
+        }
+        
+        .location-main {
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .location-details {
+            font-size: 12px;
+            color: var(--text-secondary);
+            margin-top: 2px;
+        }
+        
+        /* Custom Calendar Styles */
+        .date-picker-container {
+            padding: 20px 0;
+        }
+        
+        .hidden-date-input {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .calendar-wrapper {
+            background: var(--bg-primary);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .calendar-nav {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .calendar-nav:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .calendar-month {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: var(--text-primary);
+            background: transparent;
+            border: 1px solid transparent;
+        }
+        
+        .calendar-day:hover {
+            background: var(--bg-secondary);
+        }
+        
+        .calendar-day.selected {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .calendar-day.other-month {
+            color: var(--text-muted);
+        }
+        
+        .calendar-day.today {
+            border-color: var(--primary-color);
+            font-weight: 600;
+        }
+        
+        .calendar-weekday {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .date-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+        
+        .date-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: none;
+        }
+        
+        .date-btn-today {
+            background: var(--secondary-color);
+            color: white;
+        }
+        
+        .date-btn-today:hover {
+            background: var(--primary-color);
+        }
+        
+        .date-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        
+        .date-value {
+            font-size: 16px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .passengers-section {
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--bg-secondary);
+            cursor: pointer;
+            margin-bottom: 20px;
+            transition: all 0.2s ease;
+        }
+        
+        .passengers-section:hover {
+            border-color: var(--border-hover);
+            background: var(--bg-primary);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .passengers-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 4px;
+        }
+        
+        .passengers-value {
+            font-size: 16px;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+        
+        .advanced-options {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+        }
+        
+        .advanced-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            margin-bottom: 16px;
+        }
+        
+        .advanced-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .chevron {
+            transition: transform 0.2s ease;
+            color: var(--primary-color);
+        }
+        
+        .chevron.rotated {
+            transform: rotate(180deg);
+        }
+        
+        .advanced-content {
+            display: none;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+        
+        .advanced-content.show {
+            display: grid;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-input, .form-select {
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-secondary);
+            font-size: 14px;
+            transition: all 0.2s ease;
+            color: var(--text-primary);
+        }
+        
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: var(--bg-primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        .slider-group {
+            grid-column: 1 / -1;
+        }
+        
+        .slider-container {
+            margin-top: 12px;
+        }
+        
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+        
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: var(--border-color);
+            outline: none;
+            margin: 8px 0;
+            cursor: pointer;
+        }
+        
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+        }
+        
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.3);
+        }
+        
+        .search-button {
+            width: calc(100% - 40px);
+            padding: 18px;
+            background: var(--gradient-secondary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-lg);
+            margin: 20px;
+        }
+        
+        .search-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-xl);
+        }
+        
+        .result-section {
+            margin: 20px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+        
+        .result-title {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        .url-display {
+            background: rgba(255,255,255,0.1);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.2);
+            word-break: break-all;
+            font-family: 'SF Mono', 'Monaco', 'Inconsolata', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+            color: white;
+        }
+        
+        .copy-button {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            backdrop-filter: blur(10px);
+        }
+        
+        .copy-button:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+        
+        .modal-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--bg-primary);
+            border-radius: 20px 20px 0 0;
+            padding: 24px 20px 40px 20px;
+            height: 80vh;
+            max-height: 80vh;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .modal-header {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .modal-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        
+        .modal-close {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+        
+        @media (min-width: 768px) {
+            .search-container {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 0 20px;
+            }
+            
+            .advanced-content {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .slider-group {
+                grid-column: 1 / -1;
+            }
+        }
+    </style>
+</head>
+<body data-theme="arolar">
+    <!-- Theme Selector -->
+    <div class="theme-selector">
+        <div class="theme-btn theme-arolar active" data-theme="arolar" title="A Rolar (Azul + Naranja)"></div>
+        <div class="theme-btn theme-nature" data-theme="nature" title="Naturaleza (Verde + Azul)"></div>
+        <div class="theme-btn theme-luxury" data-theme="luxury" title="Lujo (Violeta + Dorado)"></div>
+        <div class="theme-btn theme-sunset" data-theme="sunset" title="Atardecer (Rojo + Naranja)"></div>
+        <div class="theme-btn theme-ocean" data-theme="ocean" title="Océano (Azul Claro + Turquesa)"></div>
+    </div>
+
+    <div class="header">
+        <h1 var(--brand-logo)> Vuelos</h1>
+        <div class="brand-badge">
+            <span>✈️</span>
+            <span id="brandName">A Rolar Viajes</span>
+        </div>
+    </div>
+    
+    <div class="trip-type-tabs">
+        <button class="tab active" data-type="roundtrip">Ida y vuelta</button>
+        <button class="tab" data-type="oneway">Solo ida</button>
+    </div>
+    
+    <div class="search-container">
+        <div class="search-card">
+            <div class="location-section">
+                <div class="autocomplete-container">
+                    <div class="location-input" onclick="openLocationModal('from')">
+                        <div class="location-icon">🛫</div>
+                        <div class="location-content">
+                            <div class="location-label">Origen</div>
+                            <div class="location-value" id="fromDisplay">Buenos Aires, Argentina</div>
+                            <input type="hidden" id="from" value="Argentina,%20BUE%20-%20Buenos%20Aires">
+                            <input type="hidden" id="fromId" value="975">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="swap-button" onclick="swapLocations()">
+                    <span style="font-size: 16px;">🔄</span>
+                </div>
+                
+                <div class="autocomplete-container">
+                    <div class="location-input" onclick="openLocationModal('to')">
+                        <div class="location-icon">🛬</div>
+                        <div class="location-content">
+                            <div class="location-label">Destino</div>
+                            <div class="location-value" id="toDisplay">Lima, Perú</div>
+                            <input type="hidden" id="to" value="Perú,%20Lima">
+                            <input type="hidden" id="toId" value="5982">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dates-section">
+                <div class="date-input" onclick="openDateModal('departure')">
+                    <div class="date-label">Ida</div>
+                    <div class="date-value" id="departureDisplay">Lun. 1 sep. 2025</div>
+                    <input type="hidden" id="fechadesde" value="2025-09-01">
+                </div>
+                <div class="date-input" id="returnDateInput" onclick="openDateModal('return')">
+                    <div class="date-label">Vuelta</div>
+                    <div class="date-value" id="returnDisplay">Lun. 8 sep. 2025</div>
+                    <input type="hidden" id="fechahasta" value="2025-09-08">
+                </div>
+            </div>
+            
+            <div class="passengers-section" onclick="openPassengersModal()">
+                <div class="passengers-label">Pasajeros y clase</div>
+                <div class="passengers-value" id="passengersDisplay">1 persona, Turista</div>
+                <input type="hidden" id="distribution" value="1">
+            </div>
+            
+            <div class="advanced-options">
+                <div class="advanced-header" onclick="toggleAdvanced()">
+                    <span class="advanced-title">Opciones avanzadas</span>
+                    <span class="chevron">▼</span>
+                </div>
+                <div class="advanced-content" id="advancedContent">
+                    <div class="form-group">
+                        <label class="form-label">Aerolíneas</label>
+                        <input type="text" class="form-input" id="airlines" placeholder="AR,LA">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Escalas máx.</label>
+                        <select class="form-select" id="escalas">
+                            <option value="">Cualquiera</option>
+                            <option value="0">Directo</option>
+                            <option value="1">1 escala</option>
+                            <option value="2">2 escalas</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Equipaje</label>
+                        <input type="text" class="form-input" id="equipaje" placeholder="hand_on,carry_on">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Precio desde</label>
+                        <input type="number" class="form-input" id="preciodesde" placeholder="714357">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Precio hasta</label>
+                        <input type="number" class="form-input" id="preciohasta" placeholder="1116249">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Ordenar por</label>
+                        <select class="form-select" id="orderType">
+                            <option value="price">Precio</option>
+                            <option value="name">Nombre</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group slider-group">
+                        <label class="form-label">Duración de vuelo</label>
+                        <div class="slider-container">
+                            <div class="slider-labels">
+                                <span>Desde: <span id="duracionDesdeLabel">07:00</span></span>
+                                <span>Hasta: <span id="duracionHastaLabel">14:00</span></span>
+                            </div>
+                            <input type="range" id="duracionDesde" min="60" max="1440" step="30" value="420" class="slider">
+                            <input type="range" id="duracionHasta" min="60" max="1440" step="30" value="840" class="slider">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group slider-group">
+                        <label class="form-label">Horarios de vuelo</label>
+                        <div class="slider-container">
+                            <div class="slider-labels">
+                                <span>Desde: <span id="horaDesdeLabel">04:04</span></span>
+                                <span>Hasta: <span id="horaHastaLabel">10:24</span></span>
+                            </div>
+                            <input type="range" id="horaDesde" min="0" max="1440" step="15" value="244" class="slider">
+                            <input type="range" id="horaHasta" min="0" max="1440" step="15" value="624" class="slider">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <button class="search-button" onclick="searchAndOpen()">
+        🔍 Buscar
+    </button>
+    
+    <div id="result" class="result-section" style="display: none;">
+        <div class="result-title">URL Generada:</div>
+        <div id="urlDisplay" class="url-display"></div>
+        <button class="copy-button" onclick="copyURL()">📋 Copiar URL</button>
+    </div>
+    
+    <!-- Modals -->
+    <div id="locationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="locationModalTitle">Seleccionar ubicación</h3>
+                <button class="modal-close" onclick="closeModal('locationModal')">×</button>
+            </div>
+            <div class="autocomplete-container">
+                <input type="text" class="form-input" id="locationInput" placeholder="Buscar ciudad o aeropuerto...">
+                <div class="autocomplete-dropdown" id="autocompleteDropdown">
+                    <div class="autocomplete-item" style="text-align: center; color: var(--text-secondary); min-height: 80px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <div class="location-main">✈️ Escribe para buscar</div>
+                        <div class="location-details">Mínimo 2 caracteres</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="dateModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="dateModalTitle">Seleccionar fecha</h3>
+                <button class="modal-close" onclick="closeModal('dateModal')">×</button>
+            </div>
+            <div class="date-picker-container">
+                <div class="calendar-wrapper">
+                    <input type="date" id="dateInput" class="hidden-date-input">
+                    <div class="calendar-display" id="calendarDisplay">
+                        <div class="calendar-header">
+                            <button type="button" class="calendar-nav" id="prevMonth">‹</button>
+                            <span class="calendar-month" id="currentMonth">Septiembre 2025</span>
+                            <button type="button" class="calendar-nav" id="nextMonth">›</button>
+                        </div>
+                        <div class="calendar-grid" id="calendarGrid">
+                            <!-- Calendar days will be generated here -->
+                        </div>
+                    </div>
+                </div>
+                <div class="date-actions">
+                    <button type="button" class="date-btn date-btn-today" onclick="selectToday()">Seleccionar Hoy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="passengersModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Pasajeros y clase</h3>
+                <button class="modal-close" onclick="closeModal('passengersModal')">×</button>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Distribución</label>
+                <input type="text" class="form-input" id="distributionInput" value="1" placeholder="Ej: 2-6">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // White-label Configuration
+        const BRAND_CONFIG = {
+            name: "A Rolar Viajes",
+            logo: "✈️",
+            baseUrl: "https://a_rolar_viajes.mbc.aero.tur.ar/flight/search",
+            themes: {
+                arolar: {
+                    name: "A Rolar (Azul + Naranja)",
+                    primary: "#2563eb",
+                    secondary: "#f97316"
+                },
+                nature: {
+                    name: "Naturaleza (Verde + Azul)",
+                    primary: "#059669",
+                    secondary: "#0ea5e9"
+                },
+                luxury: {
+                    name: "Lujo (Violeta + Dorado)",
+                    primary: "#7c3aed",
+                    secondary: "#f59e0b"
+                },
+                sunset: {
+                    name: "Atardecer (Rojo + Naranja)",
+                    primary: "#dc2626",
+                    secondary: "#f97316"
+                },
+                ocean: {
+                    name: "Océano (Azul Claro + Turquesa)",
+                    primary: "#0ea5e9",
+                    secondary: "#06b6d4"
+                }
+            }
+        };
+        
+        // Theme Management
+        function initThemes() {
+            const themeButtons = document.querySelectorAll('.theme-btn');
+            themeButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const theme = this.dataset.theme;
+                    switchTheme(theme);
+                    
+                    // Update active state
+                    themeButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        }
+        
+        function switchTheme(themeName) {
+            document.body.setAttribute('data-theme', themeName);
+            
+            // Update CSS custom properties dynamically
+            const root = document.documentElement;
+            const themeConfig = BRAND_CONFIG.themes[themeName];
+            
+            if (themeConfig) {
+                root.style.setProperty('--primary-color', themeConfig.primary);
+                root.style.setProperty('--secondary-color', themeConfig.secondary);
+                
+                // Update gradients
+                root.style.setProperty('--gradient-primary', `linear-gradient(135deg, ${themeConfig.primary} 0%, ${themeConfig.secondary} 100%)`);
+                root.style.setProperty('--gradient-secondary', `linear-gradient(135deg, ${themeConfig.secondary} 0%, ${themeConfig.primary} 100%)`);
+                
+                // Update body background
+                document.body.style.background = `linear-gradient(135deg, ${themeConfig.primary} 0%, ${themeConfig.secondary} 100%)`;
+            }
+            
+            // Save theme preference
+            localStorage.setItem('selectedTheme', themeName);
+            
+            // Update brand name if needed
+            updateBrandName(themeName);
+        }
+        
+        function updateBrandName(themeName) {
+            const brandNameEl = document.getElementById('brandName');
+            if (brandNameEl) {
+                // You can customize brand names per theme if needed
+                const themeNames = {
+                    arolar: "A Rolar Viajes",
+                    nature: "EcoViajes",
+                    luxury: "Premium Travel",
+                    sunset: "Sunset Tours",
+                    ocean: "Ocean Travels"
+                };
+                
+                brandNameEl.textContent = themeNames[themeName] || BRAND_CONFIG.name;
+            }
+        }
+        
+        // Load saved theme
+        function loadSavedTheme() {
+            const savedTheme = localStorage.getItem('selectedTheme') || 'arolar';
+            
+            // Apply theme immediately
+            switchTheme(savedTheme);
+            
+            // Update active button
+            const activeBtn = document.querySelector(`[data-theme="${savedTheme}"]`);
+            if (activeBtn) {
+                document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+                activeBtn.classList.add('active');
+            }
+        }
+        
+        // Trip Type Management
+        let currentTripType = 'roundtrip';
+        let currentLocationField = '';
+        let currentDateField = '';
+        
+        function initTripTypeTabs() {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    currentTripType = this.dataset.type;
+                    
+                    const returnDateInput = document.getElementById('returnDateInput');
+                    if (currentTripType === 'oneway') {
+                        returnDateInput.style.display = 'none';
+                    } else {
+                        returnDateInput.style.display = 'block';
+                    }
+                    
+                    generateURL();
+                });
+            });
+        }
+        
+        // Advanced options toggle
+        function toggleAdvanced() {
+            const content = document.getElementById('advancedContent');
+            const chevron = document.querySelector('.chevron');
+            
+            content.classList.toggle('show');
+            chevron.classList.toggle('rotated');
+        }
+        
+        // Autocomplete functionality
+        let autocompleteTimeout;
+        let isSearching = false;
+        
+        async function searchLocations(query) {
+            if (!query || query.length < 2) return [];
+            
+            isSearching = true;
+            
+            try {
+                const url = `https://ln6jlvzgjd.execute-api.sa-east-1.amazonaws.com/production/locations?q=${encodeURIComponent(query)}`;
+                console.log('🔍 Fetching URL:', url);
+                
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Token token="25a9d36bf49ea21f6a59dad6a356dce3"',
+                        'Origin': 'https://a_rolar_viajes.mbc.aero.tur.ar',
+                        'Referer': 'https://a_rolar_viajes.mbc.aero.tur.ar/'
+                    }
+                });
+                
+                console.log('📡 Response status:', response.status);
+                console.log('📡 Response ok:', response.ok);
+                
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    console.error('❌ API Response Error:', response.status, response.statusText, errorText);
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                console.log('📊 Raw API Response:', data);
+                
+                isSearching = false;
+                
+                // Handle the specific API format you showed
+                let results = [];
+                if (data.status === "ok" && data.data && Array.isArray(data.data)) {
+                    results = data.data.map(item => ({
+                        id: item.id,
+                        name: item.text.split(', ').pop(), // Get last part as city name
+                        text: item.text,
+                        country: item.text.split(', ')[0], // Get first part as country
+                        city: item.text.split(', ').slice(1).join(', '), // Everything after country
+                        iata_code: '', // Not provided by this API
+                        original: item
+                    }));
+                    console.log('✅ Processed', results.length, 'locations');
+                } else if (Array.isArray(data)) {
+                    results = data;
+                } else if (data.locations) {
+                    results = data.locations;
+                } else if (data.results) {
+                    results = data.results;
+                } else {
+                    console.warn('⚠️ Unknown response format:', data);
+                    results = [];
+                }
+                
+                console.log('🎯 Final results count:', results.length);
+                console.log('📋 Sample processed results:', results.slice(0, 3));
+                return results;
+                
+            } catch (error) {
+                console.error('❌ Autocomplete fetch error:', error);
+                isSearching = false;
+                showErrorState(error.message);
+                return [];
+            }
+        }
+        
+        function showLoadingState() {
+            const dropdown = document.getElementById('autocompleteDropdown');
+            dropdown.innerHTML = '<div class="autocomplete-item" style="text-align: center; color: var(--text-secondary); min-height: 80px; display: flex; align-items: center; justify-content: center;"><div class="location-main">🔍 Buscando...</div></div>';
+            // No need to change display - it's always block
+        }
+        
+        function showErrorState(error) {
+            const dropdown = document.getElementById('autocompleteDropdown');
+            dropdown.innerHTML = `<div class="autocomplete-item" style="text-align: center; color: var(--danger-color); min-height: 80px; display: flex; flex-direction: column; align-items: center; justify-content: center;"><div class="location-main">❌ Error: ${error}</div><div class="location-details">Intenta de nuevo</div></div>`;
+            // No need to change display - it's always block
+        }
+        
+        function showAutocompleteResults(results) {
+            const dropdown = document.getElementById('autocompleteDropdown');
+            dropdown.innerHTML = '';
+            
+            if (results.length === 0) {
+                dropdown.innerHTML = '<div class="autocomplete-item" style="text-align: center; color: var(--text-secondary); min-height: 80px; display: flex; flex-direction: column; align-items: center; justify-content: center;"><div class="location-main">🚫 Sin resultados</div><div class="location-details">Intenta con otro término</div></div>';
+                return;
+            }
+            
+            // Show up to 10 results for better UX
+            results.slice(0, 10).forEach(location => {
+                const item = document.createElement('div');
+                item.className = 'autocomplete-item';
+                
+                // Handle the new format from API
+                const locationName = location.name || location.city || location.text || 'Ciudad desconocida';
+                const locationDetails = location.text || [
+                    location.country || location.country_name,
+                    location.iata_code || location.code,
+                    location.region
+                ].filter(Boolean).join(' • ');
+                
+                item.innerHTML = `
+                    <div class="location-main">✈️ ${locationName}</div>
+                    <div class="location-details">${locationDetails}</div>
+                `;
+                
+                item.addEventListener('click', () => {
+                    selectLocation(location);
+                });
+                
+                dropdown.appendChild(item);
+            });
+            
+            console.log('📋 Showing', results.length, 'autocomplete results in fixed height dropdown');
+        }
+        
+        function selectLocation(location) {
+            // Handle the new API format
+            const locationText = location.text || location.name || location.city || 'Ciudad desconocida';
+            const locationName = location.name || locationText.split(', ').pop() || 'Ciudad desconocida';
+            const country = location.country || locationText.split(', ')[0] || '';
+            const locationId = location.id || location.original?.id || '999'; // Use actual ID from API
+            const iataCode = location.iata_code || location.code || locationName.substring(0, 3).toUpperCase();
+            
+            // Format: Country,%20CODE%20-%20CityName  
+            const locationValue = `${country},%20${iataCode}%20-%20${locationName}`.replace(/ /g, '%20');
+            
+            console.log('🎯 Selected location:', {
+                original: location,
+                id: locationId,
+                formatted: locationValue,
+                display: `${locationName}, ${country}`
+            });
+            
+            // Store both value and ID
+            document.getElementById(currentLocationField).value = locationValue;
+            document.getElementById(currentLocationField + 'Id').value = locationId;
+            document.getElementById(currentLocationField + 'Display').textContent = `${locationName}, ${country}`;
+            
+            // Hide dropdown and close modal
+            document.getElementById('autocompleteDropdown').style.display = 'none';
+            closeModal('locationModal');
+            
+            generateURL();
+        }
+        
+        function setupAutocomplete() {
+            const locationInput = document.getElementById('locationInput');
+            
+            locationInput.addEventListener('input', function() {
+                clearTimeout(autocompleteTimeout);
+                const query = this.value.trim();
+                
+                console.log('🔍 Input changed:', query);
+                
+                if (query.length < 2) {
+                    const dropdown = document.getElementById('autocompleteDropdown');
+                    dropdown.innerHTML = '<div class="autocomplete-item" style="text-align: center; color: var(--text-secondary); min-height: 80px; display: flex; flex-direction: column; align-items: center; justify-content: center;"><div class="location-main">✈️ Escribe para buscar</div><div class="location-details">Mínimo 2 caracteres</div></div>';
+                    return;
+                }
+                
+                // Debounce the search
+                autocompleteTimeout = setTimeout(async () => {
+                    console.log('🚀 Starting search for:', query);
+                    showLoadingState();
+                    const results = await searchLocations(query);
+                    console.log('📊 Search completed. Results:', results);
+                    showAutocompleteResults(results);
+                }, 500);
+            });
+            
+            // Clear dropdown when input loses focus (but not when clicking dropdown items)
+            locationInput.addEventListener('blur', function() {
+                setTimeout(() => {
+                    // Don't hide the dropdown on blur since it's always visible now
+                    console.log('🔄 Input blur - keeping dropdown visible');
+                }, 150);
+            });
+            
+            console.log('✅ Autocomplete setup completed');
+        }
+        // Custom Calendar functionality
+        let currentCalendarDate = new Date();
+        let selectedDate = null;
+        
+        function generateCalendar(year, month) {
+            const firstDay = new Date(year, month, 1);
+            const lastDay = new Date(year, month + 1, 0);
+            const firstDayWeek = firstDay.getDay();
+            const daysInMonth = lastDay.getDate();
+            
+            const grid = document.getElementById('calendarGrid');
+            grid.innerHTML = '';
+            
+            // Add weekday headers
+            const weekdays = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+            weekdays.forEach(day => {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-weekday';
+                dayEl.textContent = day;
+                grid.appendChild(dayEl);
+            });
+            
+            // Add empty cells for days before month starts
+            for (let i = 0; i < firstDayWeek; i++) {
+                const emptyDay = document.createElement('div');
+                emptyDay.className = 'calendar-day other-month';
+                const prevMonthDay = new Date(year, month, -firstDayWeek + i + 1).getDate();
+                emptyDay.textContent = prevMonthDay;
+                grid.appendChild(emptyDay);
+            }
+            
+            // Add days of the month
+            const today = new Date();
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                dayEl.textContent = day;
+                
+                const currentDay = new Date(year, month, day);
+                
+                // Mark today
+                if (currentDay.toDateString() === today.toDateString()) {
+                    dayEl.classList.add('today');
+                }
+                
+                // Mark selected date
+                if (selectedDate && currentDay.toDateString() === selectedDate.toDateString()) {
+                    dayEl.classList.add('selected');
+                }
+                
+                // Add click handler with correct day value
+                dayEl.addEventListener('click', () => {
+                    // Remove previous selection
+                    grid.querySelectorAll('.calendar-day.selected').forEach(el => {
+                        el.classList.remove('selected');
+                    });
+                    
+                    // Add selection to clicked day
+                    dayEl.classList.add('selected');
+                    
+                    // Create date without timezone issues - use local timezone
+                    selectedDate = new Date(year, month, day);
+                    
+                    // Format date correctly - direct formatting
+                    const yyyy = year;
+                    const mm = String(month + 1).padStart(2, '0');
+                    const dd = String(day).padStart(2, '0'); // Use the day parameter directly
+                    const dateStr = `${yyyy}-${mm}-${dd}`;
+                    
+                    console.log('📅 Calendar click:', {
+                        clickedDay: day,
+                        selectedDate: selectedDate,
+                        formattedDate: dateStr,
+                        dateGetDate: selectedDate.getDate()
+                    });
+                    
+                    document.getElementById('dateInput').value = dateStr;
+                    
+                    // Auto-close modal and update display
+                    setTimeout(() => {
+                        closeModal('dateModal');
+                    }, 200);
+                });
+                
+                grid.appendChild(dayEl);
+            }
+            
+            // Update month display
+            const monthNames = [
+                'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+            ];
+            document.getElementById('currentMonth').textContent = `${monthNames[month]} ${year}`;
+        }
+        
+        function setupCalendar() {
+            // Navigation buttons
+            document.getElementById('prevMonth').addEventListener('click', () => {
+                currentCalendarDate.setMonth(currentCalendarDate.getMonth() - 1);
+                generateCalendar(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth());
+            });
+            
+            document.getElementById('nextMonth').addEventListener('click', () => {
+                currentCalendarDate.setMonth(currentCalendarDate.getMonth() + 1);
+                generateCalendar(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth());
+            });
+        }
+        
+        function selectToday() {
+            const today = new Date();
+            selectedDate = today;
+            
+            // Update calendar view to current month if needed
+            currentCalendarDate = new Date(today);
+            generateCalendar(today.getFullYear(), today.getMonth());
+            
+            // Format date correctly avoiding timezone issues
+            const yyyy = today.getFullYear();
+            const mm = String(today.getMonth() + 1).padStart(2, '0');
+            const dd = String(today.getDate()).padStart(2, '0');
+            const dateStr = `${yyyy}-${mm}-${dd}`;
+            
+            console.log('Selected today:', today, 'Formatted:', dateStr);
+            document.getElementById('dateInput').value = dateStr;
+            
+            // Auto-close modal
+            setTimeout(() => {
+                closeModal('dateModal');
+            }, 200);
+        }
+        
+        function confirmDateSelection() {
+            if (selectedDate) {
+                closeModal('dateModal');
+            }
+        }
+        // Modal functions
+        function openLocationModal(field) {
+            currentLocationField = field;
+            const modal = document.getElementById('locationModal');
+            const title = document.getElementById('locationModalTitle');
+            const input = document.getElementById('locationInput');
+            const dropdown = document.getElementById('autocompleteDropdown');
+            
+            title.textContent = field === 'from' ? 'Seleccionar origen' : 'Seleccionar destino';
+            input.value = '';
+            
+            // Reset dropdown to initial state
+            dropdown.innerHTML = '<div class="autocomplete-item" style="text-align: center; color: var(--text-secondary); min-height: 80px; display: flex; flex-direction: column; align-items: center; justify-content: center;"><div class="location-main">✈️ Escribe para buscar</div><div class="location-details">Mínimo 2 caracteres</div></div>';
+            
+            // Re-setup autocomplete for this modal instance
+            setupAutocompleteForModal();
+            
+            modal.style.display = 'block';
+            setTimeout(() => input.focus(), 100);
+        }
+        
+        function setupAutocompleteForModal() {
+            const locationInput = document.getElementById('locationInput');
+            
+            // Remove existing event listeners to avoid duplicates
+            const newInput = locationInput.cloneNode(true);
+            locationInput.parentNode.replaceChild(newInput, locationInput);
+            
+            // Add fresh event listeners
+            newInput.addEventListener('input', function() {
+                clearTimeout(autocompleteTimeout);
+                const query = this.value.trim();
+                
+                console.log(`🔍 ${currentLocationField} input changed:`, query);
+                
+                if (query.length < 2) {
+                    const dropdown = document.getElementById('autocompleteDropdown');
+                    dropdown.innerHTML = '<div class="autocomplete-item" style="text-align: center; color: var(--text-secondary); min-height: 80px; display: flex; flex-direction: column; align-items: center; justify-content: center;"><div class="location-main">✈️ Escribe para buscar</div><div class="location-details">Mínimo 2 caracteres</div></div>';
+                    return;
+                }
+                
+                // Debounce the search
+                autocompleteTimeout = setTimeout(async () => {
+                    console.log(`🚀 Starting ${currentLocationField} search for:`, query);
+                    showLoadingState();
+                    const results = await searchLocations(query);
+                    console.log(`📊 ${currentLocationField} search completed. Results:`, results);
+                    showAutocompleteResults(results);
+                }, 500);
+            });
+            
+            console.log(`✅ Autocomplete setup completed for ${currentLocationField}`);
+        }
+        
+        function openDateModal(field) {
+            currentDateField = field;
+            const modal = document.getElementById('dateModal');
+            const title = document.getElementById('dateModalTitle');
+            const input = document.getElementById('dateInput');
+            
+            title.textContent = field === 'departure' ? 'Fecha de ida' : 'Fecha de vuelta';
+            
+            const hiddenField = field === 'departure' ? 'fechadesde' : 'fechahasta';
+            const currentValue = document.getElementById(hiddenField).value;
+            input.value = currentValue;
+            
+            // Set selected date for calendar
+            if (currentValue) {
+                selectedDate = new Date(currentValue + 'T00:00:00');
+                currentCalendarDate = new Date(selectedDate);
+            } else {
+                selectedDate = null;
+                currentCalendarDate = new Date();
+            }
+            
+            // Generate calendar
+            generateCalendar(currentCalendarDate.getFullYear(), currentCalendarDate.getMonth());
+            
+            modal.style.display = 'block';
+        }
+        
+        function openPassengersModal() {
+            const modal = document.getElementById('passengersModal');
+            const input = document.getElementById('distributionInput');
+            
+            input.value = document.getElementById('distribution').value;
+            modal.style.display = 'block';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            
+            // Update values when closing modals
+            if (modalId === 'locationModal') {
+                // Location selection is handled by selectLocation function
+                document.getElementById('autocompleteDropdown').style.display = 'none';
+            }
+            
+            if (modalId === 'dateModal' && currentDateField) {
+                const input = document.getElementById('dateInput');
+                const hiddenField = currentDateField === 'departure' ? 'fechadesde' : 'fechahasta';
+                const displayField = currentDateField === 'departure' ? 'departureDisplay' : 'returnDisplay';
+                
+                // Update the hidden field with the selected date
+                document.getElementById(hiddenField).value = input.value;
+                
+                // Format date for display in the form
+                if (input.value) {
+                    const [year, month, day] = input.value.split('-');
+                    const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+                    const options = { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric' };
+                    const formattedDate = date.toLocaleDateString('es-ES', options);
+                    
+                    console.log('📅 Updating display:', {
+                        inputValue: input.value,
+                        parsedDate: date,
+                        formattedDisplay: formattedDate
+                    });
+                    
+                    document.getElementById(displayField).textContent = formattedDate;
+                } else {
+                    document.getElementById(displayField).textContent = currentDateField === 'departure' ? 'Seleccionar ida' : 'Seleccionar vuelta';
+                }
+                
+                generateURL();
+            }
+            
+            if (modalId === 'passengersModal') {
+                const input = document.getElementById('distributionInput');
+                document.getElementById('distribution').value = input.value;
+                document.getElementById('passengersDisplay').textContent = `${input.value} persona${input.value > 1 ? 's' : ''}, Turista`;
+                generateURL();
+            }
+        }
+        
+        // Swap locations
+        function swapLocations() {
+            const fromValue = document.getElementById('from').value;
+            const fromId = document.getElementById('fromId').value;
+            const fromDisplay = document.getElementById('fromDisplay').textContent;
+            const toValue = document.getElementById('to').value;
+            const toId = document.getElementById('toId').value;
+            const toDisplay = document.getElementById('toDisplay').textContent;
+            
+            // Swap all values
+            document.getElementById('from').value = toValue;
+            document.getElementById('fromId').value = toId;
+            document.getElementById('fromDisplay').textContent = toDisplay;
+            document.getElementById('to').value = fromValue;
+            document.getElementById('toId').value = fromId;
+            document.getElementById('toDisplay').textContent = fromDisplay;
+            
+            generateURL();
+        }
+        
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+        }
+        
+        // URL Generation
+        function getValueOrUndefined(elementId) {
+            const value = document.getElementById(elementId).value;
+            if (!value || value.trim() === '') {
+                return 'undefined';
+            }
+            return value.trim();
+        }
+        
+        function minutesToTime(minutes) {
+            const hours = Math.floor(minutes / 60);
+            const mins = minutes % 60;
+            return `${hours.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}`;
+        }
+        
+        function updateDuracionLabels() {
+            const duracionDesde = document.getElementById('duracionDesde').value;
+            const duracionHasta = document.getElementById('duracionHasta').value;
+            
+            document.getElementById('duracionDesdeLabel').textContent = minutesToTime(duracionDesde);
+            document.getElementById('duracionHastaLabel').textContent = minutesToTime(duracionHasta);
+        }
+        
+        function updateHoraLabels() {
+            const horaDesde = document.getElementById('horaDesde').value;
+            const horaHasta = document.getElementById('horaHasta').value;
+            
+            document.getElementById('horaDesdeLabel').textContent = minutesToTime(horaDesde);
+            document.getElementById('horaHastaLabel').textContent = minutesToTime(horaHasta);
+        }
+        
+        function generateURL() {
+            const from = getValueOrUndefined('from');
+            const to = getValueOrUndefined('to');
+            const fromId = getValueOrUndefined('fromId');
+            const toId = getValueOrUndefined('toId');
+            const fechadesde = getValueOrUndefined('fechadesde');
+            const fechahasta = currentTripType === 'oneway' ? fechadesde : getValueOrUndefined('fechahasta');
+            const distribution = getValueOrUndefined('distribution');
+            const airlines = getValueOrUndefined('airlines');
+            const escalas = getValueOrUndefined('escalas');
+            const preciodesde = getValueOrUndefined('preciodesde');
+            const preciohasta = getValueOrUndefined('preciohasta');
+            
+            const duracionDesdeMinutos = document.getElementById('duracionDesde').value;
+            const duracionHastaMinutos = document.getElementById('duracionHasta').value;
+            const duraciondesde = minutesToTime(duracionDesdeMinutos);
+            const duraciohasta = minutesToTime(duracionHastaMinutos);
+            
+            const horaDesdeMinutos = document.getElementById('horaDesde').value;
+            const horaHastaMinutos = document.getElementById('horaHasta').value;
+            const horadesde = minutesToTime(horaDesdeMinutos);
+            const horahasta = minutesToTime(horaHastaMinutos);
+            
+            const orderType = document.getElementById('orderType').value || 'price';
+            const order = 'asc';
+            const equipaje = getValueOrUndefined('equipaje');
+            const isOneWay = currentTripType === 'oneway';
+            const page = '1';
+            
+            console.log('🔗 Generating URL with dynamic IDs:', {
+                fromId: fromId,
+                toId: toId,
+                isOneWay: isOneWay,
+                from: from,
+                to: to
+            });
+            
+            // Use the actual IDs from autocomplete selection
+            const url = `${BRAND_CONFIG.baseUrl}/${from}/${to}/${fromId}/${toId}/${fechadesde}/${fechahasta}/${distribution}/${airlines}/${escalas}/${preciodesde}/${preciohasta}/${duraciondesde}/${duraciohasta}/undefined/undefined/${horadesde}/${horahasta}/undefined/undefined/${orderType}/${order}/${equipaje}/${isOneWay}/${page}`;
+            
+            document.getElementById('urlDisplay').textContent = url;
+            document.getElementById('result').style.display = 'block';
+        }
+        
+        function searchAndOpen() {
+            // Generate the URL first
+            generateURL();
+            
+            // Get the generated URL
+            const generatedURL = document.getElementById('urlDisplay').textContent;
+            
+            console.log('🚀 Opening search in new tab:', generatedURL);
+            
+            // Open in new tab
+            if (generatedURL && generatedURL !== '') {
+                window.open(generatedURL, '_blank', 'noopener,noreferrer');
+            } else {
+                console.error('❌ No URL generated to open');
+                alert('Error: No se pudo generar la URL de búsqueda');
+            }
+        }
+        
+        function copyURL() {
+            const urlText = document.getElementById('urlDisplay').textContent;
+            navigator.clipboard.writeText(urlText).then(function() {
+                const copyBtn = document.querySelector('.copy-button');
+                const originalText = copyBtn.textContent;
+                copyBtn.textContent = '✅ Copiado!';
+                copyBtn.style.background = 'rgba(34, 197, 94, 0.3)';
+                
+                setTimeout(() => {
+                    copyBtn.textContent = originalText;
+                    copyBtn.style.background = 'rgba(255,255,255,0.2)';
+                }, 2000);
+            }).catch(function(err) {
+                console.error('Error al copiar: ', err);
+                alert('No se pudo copiar automáticamente. Por favor, selecciona y copia manualmente.');
+            });
+        }
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            // Ctrl/Cmd + Enter to search
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                generateURL();
+            }
+            
+            // Escape to close modals
+            if (e.key === 'Escape') {
+                const openModal = document.querySelector('.modal[style*="block"]');
+                if (openModal) {
+                    openModal.style.display = 'none';
+                }
+            }
+        });
+        
+        // Initialize everything
+        window.onload = function() {
+            // Initialize themes first
+            initThemes();
+            
+            // Load saved theme immediately
+            setTimeout(() => {
+                loadSavedTheme();
+            }, 100);
+            
+            // Initialize trip type tabs
+            initTripTypeTabs();
+            
+            // Setup custom calendar
+            setupCalendar();
+            
+            // Configure slider event listeners
+            document.getElementById('duracionDesde').addEventListener('input', updateDuracionLabels);
+            document.getElementById('duracionHasta').addEventListener('input', updateDuracionLabels);
+            document.getElementById('horaDesde').addEventListener('input', updateHoraLabels);
+            document.getElementById('horaHasta').addEventListener('input', updateHoraLabels);
+            
+            // Initialize labels
+            updateDuracionLabels();
+            updateHoraLabels();
+            
+            // Generate initial URL
+            generateURL();
+            
+            console.log('🎨 White-label Flight Search initialized');
+            console.log('📋 Available themes:', Object.keys(BRAND_CONFIG.themes));
+            console.log('🔍 Testing autocomplete with sample query...');
+            
+            // Test autocomplete functionality with debug
+            setTimeout(() => {
+                console.log('🧪 Running test search for "bue"...');
+                searchLocations('bue').then(results => {
+                    console.log('✅ Test search completed. Results count:', results.length);
+                    console.log('📊 Sample results:', results.slice(0, 3));
+                    if (results.length === 0) {
+                        console.warn('⚠️ No results returned - check API connection and headers');
+                    }
+                }).catch(error => {
+                    console.error('❌ Test search failed:', error);
+                });
+            }, 2000);
+        };
+        
+        // Export configuration for external customization
+        window.FlightSearchConfig = BRAND_CONFIG;
+    </script>
+</body>
+</html>
