@@ -909,8 +909,8 @@
                         <label class="form-label">Duración de vuelo</label>
                         <div class="slider-container">
                             <div class="slider-labels">
-                                <span>Desde: <span id="duracionDesdeLabel">07:00</span></span>
-                                <span>Hasta: <span id="duracionHastaLabel">14:00</span></span>
+                                <span>Desde: <span id="duracionDesdeLabel">undefined</span></span>
+                                <span>Hasta: <span id="duracionHastaLabel">undefined</span></span>
                             </div>
                             <input type="range" id="duracionDesde" min="60" max="1440" step="30" value="420" class="slider">
                             <input type="range" id="duracionHasta" min="60" max="1440" step="30" value="840" class="slider">
@@ -921,8 +921,8 @@
                         <label class="form-label">Horarios de vuelo</label>
                         <div class="slider-container">
                             <div class="slider-labels">
-                                <span>Desde: <span id="horaDesdeLabel">04:04</span></span>
-                                <span>Hasta: <span id="horaHastaLabel">10:24</span></span>
+                                <span>Desde: <span id="horaDesdeLabel">undefined</span></span>
+                                <span>Hasta: <span id="horaHastaLabel">undefined</span></span>
                             </div>
                             <input type="range" id="horaDesde" min="0" max="1440" step="15" value="244" class="slider">
                             <input type="range" id="horaHasta" min="0" max="1440" step="15" value="624" class="slider">
@@ -1745,7 +1745,8 @@
             });
             
             // Use the actual IDs from autocomplete selection
-            const url = `${BRAND_CONFIG.baseUrl}/${from}/${to}/${fromId}/${toId}/${fechadesde}/${fechahasta}/${distribution}/${airlines}/${escalas}/${preciodesde}/${preciohasta}/${duraciondesde}/${duraciohasta}/undefined/undefined/${horadesde}/${horahasta}/undefined/undefined/${orderType}/${order}/${equipaje}/${isOneWay}/${page}`;
+          //  const url = `${BRAND_CONFIG.baseUrl}/${from}/${to}/${fromId}/${toId}/${fechadesde}/${fechahasta}/${distribution}/${airlines}/${escalas}/${preciodesde}/${preciohasta}/${duraciondesde}/${duraciohasta}/undefined/undefined/${horadesde}/${horahasta}/undefined/undefined/${orderType}/${order}/${equipaje}/${isOneWay}/${page}`;
+             const url = `${BRAND_CONFIG.baseUrl}/${from}/${to}/${fromId}/${toId}/${fechadesde}/${fechahasta}/${distribution}/undefined/undefined/undefined/undefined/undefined/undefined/undefined/undefined/${horadesde}/undefined/undefined/undefined/${orderType}/${order}/${equipaje}/${isOneWay}/${page}`;
             
             document.getElementById('urlDisplay').textContent = url;
             document.getElementById('result').style.display = 'block';
