@@ -4,14 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SearchBox - Vuelos y Hoteles</title>
-    <link rel="stylesheet" type="text/css" href="./static/css/main.decompiled.css">
-    <link rel="stylesheet" type="text/css" href="./static/css/searchbox-custom.css">
+    <link rel="stylesheet" href="css/searchbox.css">
+
+    
 </head>
 <body>
     <div class="custom-search-container">
         <!-- Header -->
         <div class="header">
-            <button class="close-button">✕</button>
+            <button class="close-button" onclick="goBack()">✕</button>
             <h1 class="header-title">Vuelos</h1>
         </div>
         
@@ -33,11 +34,11 @@
                     <div class="origin-destination-container">
                         <div class="search-form-col">
                             <label>Origen</label>
-                            <input type="text" id="flight-origin" placeholder="Buenos Aires, Argentina" class="search-input">
+                            <input type="text" id="flight-origin" placeholder="Ingresa desde donde viajas" class="search-input">
                         </div>
                         <div class="search-form-col">
                             <label>Destino</label>
-                            <input type="text" id="flight-destination" placeholder="Lima, Lima, Perú" class="search-input">
+                            <input type="text" id="flight-destination" placeholder="Ingresa hacia donde viajas" class="search-input">
                         </div>
                         <!-- Swap button -->
                         <button class="swap-button" type="button" id="swap-locations">⇅</button>
@@ -47,7 +48,7 @@
                     <div class="dates-container">
                         <div class="search-form-col">
                             <label>Salida</label>
-                            <input type="date" id="flight-departure" class="search-input" min="" value="">
+                            <input type="date" id="flight-departure" class="search-input" min="" value="" placeholder="Ida">
                         </div>
                         <div class="search-form-col">
                             <label>Regreso</label>
@@ -81,6 +82,45 @@
         </div>
     </div>
 
-    <script src="./static/js/searchbox-custom.js"></script>
+    <script src="js/searchbox.js"></script>
+    
+    <script>
+        // Función para volver a la página anterior
+        function goBack() {
+            console.log('🔙 Botón close clickeado - volviendo a página anterior');
+            
+            // Verificar si hay historial para volver
+            if (window.history.length > 1) {
+                console.log('📱 Historial disponible, haciendo history.back()');
+                window.history.back();
+            } else {
+                console.log('⚠️ No hay historial, redirigiendo a home.html');
+                // Si no hay historial, redirigir a home.html
+                window.location.href = 'home.html';
+            }
+        }
+        
+        // También agregar funcionalidad de tecla Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                console.log('⌨️ Tecla Escape presionada');
+                goBack();
+            }
+        });
+        
+        // Log cuando se carga la página
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 SearchBox cargado');
+            console.log('📍 Página actual:', window.location.href);
+            console.log('📱 Historial disponible:', window.history.length);
+            
+            // Verificar parámetros de URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productSelected = urlParams.get('productSelected');
+            if (productSelected) {
+                console.log('🎯 Producto seleccionado:', productSelected);
+            }
+        });
+    </script>
 </body>
 </html>

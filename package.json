@@ -1,0 +1,47 @@
+{
+  "name": "web-components-project",
+  "version": "1.0.0",
+  "description": "Agencia de turismo con Web Components, Clean Architecture y principios SOLID",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "es2015": "dist/esm/index.js",
+  "es2017": "dist/esm/index.js",
+  "types": "dist/types/index.d.ts",
+  "collection": "dist/collection/collection-manifest.json",
+  "collection:main": "dist/collection/index.js",
+  "unpkg": "dist/web-components-project/web-components-project.esm.js",
+  "files": [
+    "dist/",
+    "loader/"
+  ],
+  "scripts": {
+    "build": "stencil build --docs",
+    "start": "stencil build --dev --watch --serve",
+    "test": "stencil test --spec --e2e",
+    "test.watch": "stencil test --spec --e2e --watchAll",
+    "generate": "stencil generate"
+  },
+  "dependencies": {
+    "@stencil/core": "^4.0.0"
+  },
+  "devDependencies": {
+    "@stencil/sass": "^3.0.0",
+    "@types/jest": "^29.0.0",
+    "jest": "^29.0.0",
+    "jest-environment-jsdom": "^29.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/web-components-project.git"
+  },
+  "keywords": [
+    "web-components",
+    "stencil",
+    "clean-architecture",
+    "solid-principles",
+    "tourism",
+    "travel-booking"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+} 
