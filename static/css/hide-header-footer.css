@@ -1,0 +1,26 @@
+/* Ocultar header y footer */
+.ant-layout-header {
+    display: none !important;
+}
+
+.ant-layout-footer {
+    display: none !important;
+}
+
+/* Ajustar el contenido principal para ocupar toda la pantalla */
+.ant-layout-content {
+    padding: 0 !important;
+    margin: 0 !important;
+    min-height: 100vh !important;
+}
+
+/* Ajustes adicionales para el contenedor principal */
+.main-container {
+    min-height: 100vh !important;
+}
+
+/* Opcional: quitar márgenes del contenido */
+.agency-form-row {
+    margin: 0 !important;
+    padding: 20px !important;
+}
