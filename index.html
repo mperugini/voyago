@@ -1,42 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - A Rolar</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/home.css">
+    <style>
+        /* Prevent layout shifts during loading */
+        .carousel-track {
+            min-height: 200px;
+        }
+        
+        .loading-message {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            font-size: 1.1rem;
+            color: #7f8c8d;
+        }
+        
+        /* Smooth loading animation */
+        .loading-message::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="https://www.arolarviajes.com.ar/img/logo.png" alt="Arolar Viajes Logo">
+            </div>
+        </div>
+    </header>
 
-  <!DOCTYPE html>
-  <html>
-  <head>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-WPDSWS5');</script>
-    <!-- End Google Tag Manager -->
-    
-    <title data-react-helmet="true">A Rolar Viajes</title>
-    <meta data-react-helmet="true" itemprop="name" content="A Rolar Viajes"/><meta data-react-helmet="true" itemprop="description" content="Formulario undefined"/><meta data-react-helmet="true" itemprop="image" content="url image"/><meta data-react-helmet="true" name="description" content="Formulario undefined"/><meta data-react-helmet="true" name="twitter:card" content="summary_large_image"/><meta data-react-helmet="true" name="twitter:site" content="@mytwitter"/><meta data-react-helmet="true" name="twitter:title" content="A Rolar Viajes | Viajes"/><meta data-react-helmet="true" name="twitter:description" content="Formulario undefined"/><meta data-react-helmet="true" name="twitter:creator" content="@mytwitter"/><meta data-react-helmet="true" name="twitter:image:src" content="url image"/><meta data-react-helmet="true" name="fb:app_id" content="149350162354296"/><meta data-react-helmet="true" name="og:title" content="A Rolar Viajes | Viajes"/><meta data-react-helmet="true" name="og:type" content="website"/><meta data-react-helmet="true" name="og:url" content=""/><meta data-react-helmet="true" name="og:image" content="url image"/><meta data-react-helmet="true" name="og:description" content="Formulario undefined"/><meta data-react-helmet="true" name="og:site_name" content="Viajes"/>
-    <link data-react-helmet="true" rel="canonical" href=""/>
-    
-    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi, shrink-to-fit=no" />
-    <meta name="theme-color" content="#000000">
-    <link rel="stylesheet" type="text/css" href="/static/css/main.decompiled.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/hide-header-footer.css">
-    <link rel="manifest" href="/manifest.json">
-    <link rel="shortcut icon" href="https://aero-tur.s3-sa-east-1.amazonaws.com/agencies/images/Agency/1583/32x32.jpg?X-Amz-Expires=600&X-Amz-Date=20250825T153856Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJDOYXBY4JJXICGEA/20250825/sa-east-1/s3/aws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=7125030310bbb2e0a9f7aa2117d9e68ea2179f8255b4a1b036d7a8e1bfe578c8">
-    <link rel="stylesheet" type="text/css" href="data:text/css;charset=UTF-8,%0A%20%20%20%20%2F*%20start%20common%20colors%20*%2F%0A%20%20%20%20.agency-menu-form-search-home%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.icon%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%20%20%20%20.agency-footer-container%7B%0A%20%20%20%20%20%20background%3A%20linear-gradient(to%20right%2Crgba(75%2C75%2C75%2C100)%2Crgba(28%2C28%2C20%2C100))%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.menu-search-container%7B%0A%20%20%20%20%20%20background-color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.menu-collapsed-search-desk%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.footer-links-container%7B%0A%20%20%20%20%20%20border-top%3A%20solid%201px%20%23b4b3b3%3B%0A%20%20%20%20%20%20background-color%3A%20%23f4f4f4%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.footer-links-container%20a%7B%0A%20%20%20%20%20%20color%3A%20%23b4b3b3%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.popup-price%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.popup-price-x%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-amount-desk%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-item-list-item-title%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-col-detail-desc-amount%7B%0A%20%20%20%20%20%20background-color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.menu-collapsed-search%20%7B%0A%20%20%20%20%20%20background-color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.bm-burger-bars%7B%0A%20%20%20%20%20%20background-color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.bm-item-list%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-info-precio-border%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-item-detail-room-name%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-detail-price%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-detail-price-decimals%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.flight-information-container%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-flight-amount%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.detail-flight-container%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-info-precio%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.info-hotel-stop-sales-title%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-title-bar%7B%0A%20%20%20%20%20%20background-color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-checkout-flight-view-header-detail%7B%0A%20%20%20%20%20%20background-color%3A%20%23f9f9f9%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.ant-modal-header%7B%0A%20%20%20%20%20%20background%3A%20%234b4b4b%20!important%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.info-block-warning%7B%0A%20%20%20%20%20%20background-color%3A%20%23ffffff%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.info-block-warning-x%7B%0A%20%20%20%20%20%20color%3A%20%23ee7575%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.info-block-warning-desc%7B%0A%20%20%20%20%20%20border-left-color%3A%20%23ee7575%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-title-for-steps%7B%0A%20%20%20%20%20%20color%3A%20%233b3b3b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.flight-information-package-view-header-detail%7B%0A%20%20%20%20%20%20background-color%3A%20%23eeeeee%3B%0A%20%20%20%20%7D%0A%20%20%20%20%2F*%20end%20common%20colors%20*%2F%0A%0A%20%20%20%20%2F*%20specific%20colors%20*%2F%0A%20%20%20%20.agency-menu-form-search-home-item%3Ahover%7B%0A%20%20%20%20%20%20border-bottom-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%20%20%20%20.agency-menu-form-search-home-item-selected%7B%0A%20%20%20%20%20%20border-bottom-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.burger-menu-item-selected%7B%0A%20%20%20%20%20%20border-bottom-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.search-button-hotel-disabled%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.search-button-hotel%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.search-button-flight-disabled%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.menu-search-item-selected%7B%0A%20%20%20%20%20%20border-bottom-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.menu-search-item%3Ahover%7B%0A%20%20%20%20%20%20border-bottom-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.selectable-filter%7B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-list-active-true%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-list-package-icon-date%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.drop-down-checkbox-container-true%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.input-range__slider%2C%20.input-range__track%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%20!important%3B%0A%20%20%20%20%20%20border-color%3A%20%23000000%20!important%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.button-detail-desk%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-ver-mapa-icon%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.first-data-message-container%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.first-data-view-more-hotels-button%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.button-comprar%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.button-comprar%3Ahover%7B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.button-detail-see-rooms%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.flight-info-time-lenght%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.flight-info-stops%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.flight-link-after-color%3Abefore%7B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.flight-information-package-link-after-color%3Abefore%7B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-flight-button-detail%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.detail-flight-label-title%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.detail-flight-duration%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.detail-flight-waiting-time%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.detail-flight-white-point%7B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.detail-flight-date-arrow-right-color%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.detail-flight-color-point%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20.hotel-list-by-id-container%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.info-hotel-button-stop-sales%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-step-oval%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-step-name%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-step-passenger-title%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-step-button-back%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-step-button-next%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-price-total-container%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-price-total-text-container%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-price-title%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-price-content-container%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-detail-subtitle%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-view-more-details%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-step-name-completed%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-step-oval-completed%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-step-3-title%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-more-info%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-step-dot%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-step-2-payment-options%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-item-date-text%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-item-date-text-nights-center%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%20%20%20%20%20%20%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-item-people-content%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.menu-search-home-item-selected%7B%0A%20%20%20%20%20%20border-bottom-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.input-autocomplete-items-most-wanted-separator-icon%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.input-autocomplete-items-most-wanted-separator-text%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-how-to-confirm-payment-options-text%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-how-to-confirm-dialog-title%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-how-to-confirm-description-text-24hs-semibold%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-form-vertical-search-button-disabled%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.menu-form-vertical-search-item-selected%7B%0A%20%20%20%20%20%20border-bottom-color%3A%20%23000000%3B%20%0A%20%20%20%20%7D%0A%0A%20%20%20%20.datepicker-iframe-input-container-active%7B%0A%20%20%20%20%20%20border-bottom-color%3A%20%23000000%3B%20%0A%20%20%20%20%7D%0A%0A%20%20%20%20.DateRangePickerIframe__MonthHeader%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%20%0A%20%20%20%20%7D%0A%0A%20%20%20%20.DateRangePickerIframe__CalendarHighlight--single%7B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%20%0A%20%20%20%20%7D%0A%0A%20%20%20%20.DateRangePickerIframe__CalendarSelection%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.DateRangePickerIframe__CalendarSelection--segment%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.container-available-start%2C%20.container-available-start%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20.container-available-start-single%2C%20.container-available-start-pending%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20.container-available-end-single%2C%20.container-available-end%2C%20.container-available-end-pending%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.container-available-single-pending%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.room-passenger-iframe-room-list-item-title-action%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.room-passenger-iframe-apply-button%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.room-passenger-iframe-add-room%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%2F*%20start%20Date%20picker%20classes%20*%2F%0A%20%20%20%20.DateRangePickerSearch__MonthHeader%7B%0A%20%20%20%20%20%20color%3A%20%234b4b4b%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.DateRangePickerSearch__Date--is-selected%20.span-available-segment%7B%0A%20%20%20%20%20%20color%3A%20%23ffffff%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20.DateRangePickerSearch__CalendarHighlight--single%7B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.DateRangePickerSearch__CalendarSelection--segment%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%20!important%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.DateRangePickerSearch__CalendarSelection%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%20%20border%3A%20none%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.DateRangePickerSearch__Date%20.span-available-segment%2C%20.span-available-segment-pending%7B%0A%20%20%20%20%20%20color%3A%20%23ffffff%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.DateRangePickerSearch__Date%20.container-available-start%2C%20.container-available-start%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.DateRangePickerSearch__Date%20.container-available-start-single%2C%20.container-available-start-pending%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.DateRangePickerSearch__Date%20.container-available-end-single%2C%20.container-available-end%2C%20.container-available-end-pending%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20%2F*%20end%20Date%20picker%20classes%20*%2F%0A%0A%20%20%20%20.input-autocomplete-mobile-modal-apply-button%7B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-expired-first-paragraph%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-expired-button%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.checkout-leave-message-exit-button%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.checkout-leave-message-keep-button%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.passenger-room-add-room%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-hotel-rates-package-select-room%7B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-hotel-rates-package-selected-room%7B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20.irs-bar%7B%0A%20%20%20%20%20%20border-top-color%3A%20%23000000%3B%0A%20%20%20%20%20%20border-bottom-color%3A%20%23000000%3B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.irs-slider%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%20%20border-color%3A%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.irs-from%2C%20.irs-to%7B%0A%20%20%20%20%20%20border-color%3A%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-price-total-desc%7B%0A%20%20%20%20%20%20color%3A%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.hotel-checkout-price-total-value%7B%0A%20%20%20%20%20%20color%3A%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.season-selector-month-selected%7B%0A%20%20%20%20%20%20color%3A%23000000%3B%0A%20%20%20%20%7D%0A%20%20%20%20%0A%20%20%20%20.filter-flight-range-hour-name-selected%7B%0A%20%20%20%20%20%20color%3A%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-checkout-flight-view-header-duration-time%7B%0A%20%20%20%20%20%20color%3A%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.flight-information-package-stops%7B%0A%20%20%20%20%20%20color%3A%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.detail-view-package-reservation-button%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.season-selector-filter-month-selected-closed%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.season-selector-filter-month-selected%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-hotel-rates-package-type-room-column-title%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-hotel-rates-package-type-room-select-column%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-hotel-rates-package-select-arrow-container%3Aafter%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-hotel-rates-package-select-circle-inside%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-hotel-rates-package-room-selected-text%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-hotel-rates-package-room-description-price-not-first%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.detail-view-package-assistance-message%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.detail-view-package-assistance-mobile-button%7B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.dialog-agency-info-data-column-title%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.dialog-agency-info-data-column-data%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.checkout-payment-options-title%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.checkout-reminder-container%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.checkout-reminder-first-paragraph%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.checkout-reminder-second-paragraph%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.checkout-steps2-part4-button%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.item-hotel-package-info-view-detail%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.detail-view-package-assistance-button%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.detail-view-package-destination-people-price%7B%0A%20%20%20%20%20%20border-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.detail-view-package-assistance-added-title%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.detail-view-package-assistance-added-delete-service%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.info-hotel-amenities-title%7B%0A%20%20%20%20%20%20color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.flight-form-select-way-section-text-container-selected-mobile%7B%0A%20%20%20%20%20%20border-bottom-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%0A%20%20%20%20.flight-form-select-circle-inside%7B%0A%20%20%20%20%20%20background-color%3A%20%23000000%3B%0A%20%20%20%20%7D%0A%20%20"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/css/ion.rangeSlider.min.css"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.0/js/ion.rangeSlider.min.js"></script>
-  </head>
-  <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript>
-    You need to enable JavaScript to run this app.
-    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-WPDSWS5"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe>
-    </noscript>
-    <!-- End Google Tag Manager (noscript) -->
-    <div id="root"><section class="white main-container ant-layout" data-reactroot=""><header class="navbar ant-layout-header"><div class="ant-row row header-logo-container"></div></header><main class="ant-layout-content"><div><div class="agency-form-row"></div></div></main><footer class="navbar ant-layout-footer"><div class="ant-row agency-footer-container"></div></footer></section></div>
-    <script type="text/javascript" charset="utf-8">
-      window.INITIAL_STATE = {"packages":{"data":[],"pack":null,"fetching":false,"error":false,"metadata":{},"page":null,"rates":null,"assistances":null,"reservation":null,"goToChooseAgency":false,"goToError":false,"locations":[],"quotes":[],"formData":false},"hotels":{"data":[],"dataMap":[],"metadata":{},"params":null,"rate":null,"cancellationfees":[],"loading":true,"loadingMore":false,"loadingDataMap":false,"firstData":[],"firstResult":false,"asyncSearch":false,"showLoading":false,"showItemsMessage":false,"moveToTop":false,"showMapMessage":false,"page":1,"perPage":10,"error":null,"details":null,"regimes":[],"roomId":null,"reservation":null,"goToChooseAgency":false,"goToError":false,"names":[],"transactionStatus":null,"allNames":[],"isMap":false,"status":null},"flights":{"results":[],"flexible":[],"airlines":[],"page":null,"metadata":{},"reservation":null,"goToChooseAgency":false,"goToError":false,"fetching":false,"fetchingFlexible":false,"error":false,"formData":false},"disney":{"data":[],"details":null,"rate":null,"fetching":false,"error":false,"metadata":{},"page":null,"reservation":null,"goToChooseAgency":false,"goToError":false,"formData":false},"checkout":{"agencies":[],"agency":null,"loading":false,"reservation":false,"goToError":false,"error":false},"agencies":{"agency":{"id":1583,"name":"A Rolar Viajes","flexi_name":"A Rolar Viajes","flexi_phone":"0111565171737","flexi_contact":"Gaston Pigliapoco","flexi_email":"info@arolarviajes.com.ar","mbc_domain":null,"address":"SOJO 3118","phone":"2344503956","longitude":"-59.7782249","latitude":"-35.6370409","legajo":"15663","visible":"Si","visible_online_aero":"Si","ticket_seller_name":"Juan Pedro Labrunée","ticket_seller_email":"juanpedro.labrunee@aerolaplata.com.ar","tour_seller_name":"Santiago Scabuzzo","tour_seller_email":"santiago.scabuzzo@aerolaplata.com.ar","netviax_type":"ROJO","netviax_type_mblanca":null,"colors":[{"principal":"#000000"},{"secundary":"#000000"},{"alternative":"#000000"}],"images":[{"url":"https://aero-tur.s3-sa-east-1.amazonaws.com/agencies/images/Agency/1583/16x16.jpg?X-Amz-Expires=600&X-Amz-Date=20250825T153856Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJDOYXBY4JJXICGEA/20250825/sa-east-1/s3/aws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=bfadedaf8f1cd547a5f2e26e7d8b64b01b296b205a5b9ef9346579a58e7eca00","size":"16x16"},{"url":"https://aero-tur.s3-sa-east-1.amazonaws.com/agencies/images/Agency/1583/32x32.jpg?X-Amz-Expires=600&X-Amz-Date=20250825T153856Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJDOYXBY4JJXICGEA/20250825/sa-east-1/s3/aws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=7125030310bbb2e0a9f7aa2117d9e68ea2179f8255b4a1b036d7a8e1bfe578c8","size":"32x32"},{"url":"https://aero-tur.s3-sa-east-1.amazonaws.com/agencies/images/Agency/1583/57x57.jpg?X-Amz-Expires=600&X-Amz-Date=20250825T153856Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJDOYXBY4JJXICGEA/20250825/sa-east-1/s3/aws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=e7ec81c198ac79287e558d278f01858f4da557a2a59d1d7f5d61c461b224ba7c","size":"57x57"},{"url":"https://aero-tur.s3-sa-east-1.amazonaws.com/agencies/images/Agency/1583/114x114.jpg?X-Amz-Expires=600&X-Amz-Date=20250825T153856Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAJDOYXBY4JJXICGEA/20250825/sa-east-1/s3/aws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=6578db2f058043ce19102ccbb6ffa0d910b6bc4c54c87971a5f52bb4a901d676","size":"114x114"},{"url":"https://aero-tur.s3.amazonaws.com/agencies/images/Agency/1583/120x120.jpg","size":"120x120"},{"url":"https://agencias.aero.tur.ar/assets/default_images/2000x400-8c42aebdaa2d13ea24877c3f85ba51cb39be8d7947b363a1d96ddc18efd25f74.jpg","size":"2000x400"}],"travel_sale":false,"email":null},"error":null,"fetching":false,"flexi_agency":null,"flexi_error":null,"flexi_fetching":false},"staticcontent":{"creditcard":[{"name":"AHORA 6 / 12 / 18","url":"","image":{"url":"https://aero-tur-dev.s3.amazonaws.com/marketing/payments/image/14/ahora_12.jpg"},"details":"<style type=\"text/css\">.pago-container p,\r\n            a {\r\n                font-family: \"nunito\", sans-serif;\r\n                font-size: 14px;\r\n                font-weight: 500;\r\n            }\r\n\r\n            .resaltado {\r\n                color: #255dc4;\r\n                font-weight: 600;\r\n            }\r\n            .disponibles {\r\n              font-weight: 600\r\n            }\r\n</style>\r\n<div class=\"pago-container\">\r\n<p><strong>AHORA 6 / 12 / 18</strong></p>\r\n\r\n<p>El Programa Ahora 12 se podr&aacute; utilizar en los rubros adheridos de Lunes a Domingo hasta el 31 de Enero de 2022. Condiciones: Ahora 12 : Multiplicar el precio incluyendo impuestos por 1,145. Dividir el resultado por 12 para saber el valor de cada cuota. Ahora 18 : Multiplicar el precio incluyendo impuestos por 1,219. Dividir el resultado por 18 para saber el valor de cada cuota. Ahora 6: Multiplicar el precio incluyendo impuestos por 1,083. Dividir el resultado por 6 para saber el valor de cada cuota. Tarjetas disponibles: Visa, Mastercard y American Express*. No aplica para tarjetas corporativas, ni para tarjetas no bancarias. Disponible para Pasajes en &oacute;mnibus de larga distancia, hoteles y otros alojamientos tur&iacute;sticos habilitados por el organismo provincial competente, paquetes tur&iacute;sticos adquiridos a trav&eacute;s de agencias de viaje habilitadas, autos de alquiler, y excursiones y actividades recreativas, todos servicios a ser prestados &iacute;ntegramente dentro del Territorio Nacional.</p>\r\n\r\n<p>*En el caso de Tarjetas American Express s&oacute;lo aplica para tarjetas emitidas por los siguientes bancos: GALICIA, SANTANDER, MACRO, HSBC y PATAGONIA.</p>\r\n</div>\r\n","quotas":"6, 12 y 18"},{"name":"Macro","url":"","image":{"url":"https://aero-tur-dev.s3.amazonaws.com/marketing/payments/image/3/macro-logo.jpg"},"details":"<style type=\"text/css\">.pago-container p, a{\r\n            font-family: \"nunito\", sans-serif;\r\n            font-size: 14px;\r\n            font-weight: 500;\r\n       }\r\n\r\n       strong {\r\n         font-weight: 600;\r\n       }\r\n       \r\n       .banco-logo{\r\n           width: 100%;\r\n           margin: auto;\r\n           margin-bottom: 30px;\r\n           text-align: center;\r\n       }\r\n       \r\n       .banco-logo img{\r\n           max-width: 180px;\r\n       }\r\n</style>\r\n<div class=\"pago-container\">\r\n<p>Cartera de consumo. Promoci&oacute;n v&aacute;lida en la rep&uacute;blica argentina 08/08/2019 al 31/12/2019, para compras en locales adheridos de AERO con las tarjetas de cr&eacute;dito visa y mastercard de los bancos del grupo macro con los siguientes beneficios: (i) En 3 cuotas fijas, Coeficiente 1.0344 (ii) En 6 cuotas fijas, &nbsp;Coeficiente 1.0784 (iii) En 12 cuotas fijas,Coeficiente 1.1699. Multiplicar el precio incluyendo impuestos por el coeficiente. Dividir el resultado por el numero de cuotas para saber el valor de cada cuota. Incluye compra a trav&eacute;s on line www.aero.tur.ar, o al tel&eacute;fono 447-0101 y presencial, no v&aacute;lido tarjetas de cr&eacute;dito empresa y/o agro. Aplica s&oacute;lo para uso personal/familiar. No acumulable con otras promociones. Los establecimientos, los productos y/o servicios que comercializan o la calidad de los mismos no son promocionados ni garantizados por los bancos del grupo macro, como as&iacute; tampoco se responsabilizan por los cupones presentados fuera de t&eacute;rmino por los comercios. AERO S.R.L, CUIT: 30-70736214-2 Y DOM : CALLE 48 N&deg; 630 PISO 5 DPTO. F , LA PLATA. Consulte bases, condiciones, alcances de la promoci&oacute;n, y toda informaci&oacute;n adicional en forma previa a realizar la operaci&oacute;n en www.macro.com.ar, al 0810-555-2355 o dir&iacute;jase a la sucursal m&aacute;s cercana a tu domicilio.</p>\r\n\r\n<p><br />\r\n<strong>TNA 35%<br />\r\nCFT 41.23%</strong></p>\r\n</div>\r\n","quotas":"6 cuotas fijas con tasa promocional"},{"name":"Mercado Pago","url":"https://sitio.aero.tur.ar/payment/1","image":{"url":"https://aero-tur-dev.s3.amazonaws.com/marketing/payments/image/9/mercado-pago.jpg"},"details":"<p>-</p>\r\n","quotas":""},{"name":"Ualá","url":"https://www.ualabis.com.ar/promociones","image":{"url":"https://aero-tur-dev.s3.amazonaws.com/marketing/payments/image/17/uala1.jpg"},"details":"<p>-</p>\r\n\r\n<p>&nbsp;</p>\r\n","quotas":""}],"banks":[],"email":[]}};
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container">
+            <div class="nav-container">
+                
+                <ul class="nav-links">
+                    <li>
+                        <a href="searchbox.html?productSelected=flights" class="btn">Vuelos</a>
+                    </li>
+                    <li>
+                        <a href="searchbox.html?productSelected=hotels" class="btn">Hoteles</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <div class="container">
+            
+            <section class="home_module" id="banners_mkt">
+                <h2>Destinos Destacados</h2>
+                <div class="banners-horizontal-scroll">
+                    <div class="banner-item">
+                        <a class="link" href="https://www.despegar.com.ar/ofertas-viajes/mendoza?H=MKT_2" aria-label="Mendoza">
+                            <div class="multi-banner-wrapper">
+                                <img loading="lazy" class="picture" src="//media.staticontent.com/media/pictures/8c816274-452d-4297-8bb0-b7a1ac8e197a" alt="Mendoza" />
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="banner-item">
+                        <a class="link" href="https://www.despegar.com.ar/ofertas-viajes/bariloche?H=MKT_2" aria-label="Bariloche">
+                            <div class="multi-banner-wrapper">
+                                <img loading="lazy" class="picture" src="//media.staticontent.com/media/pictures/8c816274-452d-4297-8bb0-b7a1ac8e197a" alt="Bariloche" />
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="banner-item">
+                        <a class="link" href="https://www.despegar.com.ar/ofertas-viajes/cordoba?H=MKT_2" aria-label="Córdoba">
+                            <div class="multi-banner-wrapper">
+                                <img loading="lazy" class="picture" src="//media.staticontent.com/media/pictures/8c816274-452d-4297-8bb0-b7a1ac8e197a" alt="Córdoba" />
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="banner-item">
+                        <a class="link" href="https://www.despegar.com.ar/ofertas-viajes/ushuaia?H=MKT_2" aria-label="Ushuaia">
+                            <div class="multi-banner-wrapper">
+                                <img loading="lazy" class="picture" src="//media.staticontent.com/media/pictures/8c816274-452d-4297-8bb0-b7a1ac8e197a" alt="Ushuaia" />
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="home_module" id="reels">
+                <h2>Reels</h2>
+                <div class="reels-scroll" id="reels-container"></div>
+            </section>
+
+            <section class="home_module" id="offers">
+                <h2>Ofertas</h2>
+            </section>
+
+            <section class="home_module" id="flights">
+                <h2>Vuelos</h2>
+            </section>
+
+            <section class="home_module" id="hotels">
+                <h2>Hoteles</h2>
+            </section>
+
+            <!-- Hero Section -->
+            <section class="reels">
+                <h2>Descubre el mundo con nosotros</h2>
+                
+            </section>
+
+            <!-- Flight Carousel -->
+            <section class="flight-carousel">
+                <div class="carousel-header">
+                    <h2>Ofertas de Vuelos Destacadas</h2>
+                    <p>Descubre las mejores ofertas en vuelos nacionales e internacionales</p>
+                </div>
+                
+                <div class="carousel-container">
+                    <div class="carousel-track" id="carouselTrack">
+                        <!-- Flight cards will be loaded dynamically from JSON -->
+                        <div class="loading-message">
+                            Cargando ofertas de vuelos
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Features Grid -->
+            <section class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">✈️</div>
+                    <h3>Vuelos</h3>
+                    <p>Encuentra vuelos baratos a destinos nacionales e internacionales. Compara precios y reserva con facilidad.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏨</div>
+                    <h3>Hoteles</h3>
+                    <p>Descubre alojamientos únicos en todo el mundo. Desde hoteles de lujo hasta opciones económicas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📦</div>
+                    <h3>Paquetes</h3>
+                    <p>Ahorra con nuestros paquetes de viaje que incluyen vuelo, hotel y actividades. Todo en uno.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Personalizado</h3>
+                    <p>Recibe recomendaciones personalizadas basadas en tus preferencias y historial de viajes.</p>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="cta">
+                <h2>¿Listo para tu próxima aventura?</h2>
+                <p>Comienza a planificar tu viaje hoy mismo y descubre ofertas increíbles.</p>
+                <a href="searchbox.html" class="btn">Buscar Viajes</a>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 A Rolar. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Load scripts in correct order for optimal performance -->
+    <script src="js/utils.js"></script>
+    <script src="js/flightLoader.js"></script>
+    <script src="js/carousel.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/carouselTest.js"></script>
+    <script src="js/bannersScroll.js"></script>
+    <script>
+        // Intersection Observer para los videos
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.play();
+                } else {
+                    entry.target.pause();
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Datos de reels
+        const reels = [
+            {
+                id: "RLAPP_MX_CUN_XS_holbox",
+                title: "Conocé Holbox",
+                video: "https://media.staticontent.com/media/documents/683b7593-35d7-40e2-a45d-79f8fc4ee572",
+                link: "https://www.despegar.com.ar/actividades/ih1/actividades-en-isla+holbox"
+            },
+            {
+                id: "RLAPP_MX_CUN_INSPI_espera",
+                title: "Cancún te espera",
+                video: "https://media.staticontent.com/media/documents/dfe8b066-8511-4fef-adda-63ad5d3d4f02",
+                link: "https://www.despegar.com.ar/lugares-turisticos/cancun"
+            },
+            {
+                id: "RLAPP_MX_CUN_ADV_bbb",
+                title: "Bueno, bonito y barato",
+                video: "https://media.staticontent.com/media/documents/9d3c4ed4-b96f-4473-874b-87996f9d6dec",
+                link: "https://www.despegar.com.ar/lugares-turisticos/cancun"
+            }
+        ];
+
+        // Render reels
+        const reelsContainer = document.getElementById('reels-container');
+        reels.forEach(reel => {
+            const reelCard = document.createElement('div');
+            reelCard.className = 'reel-card';
+            reelCard.innerHTML = `
+                <video 
+                    src="${reel.video}"
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                >
+                </video>
+                <div class="reel-info">
+                    <h3 class="reel-title">${reel.title}</h3>
+                    <a href="${reel.link}" class="reel-cta">Ver más</a>
+                </div>
+            `;
+            
+            const video = reelCard.querySelector('video');
+            videoObserver.observe(video);
+            
+            reelsContainer.appendChild(reelCard);
+        });
+
+        // Performance monitoring
+        if (window.PerformanceUtils) {
+            console.log('Performance utilities loaded');
+        }
     </script>
-    <script src="/static/js/main.decompiled.js"></script>
-  </body>
-  </html>
+</body>
+</html>
