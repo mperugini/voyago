@@ -5,6 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Shifu</title>
     <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Prevent layout shifts during loading */
+        .carousel-track {
+            min-height: 200px;
+        }
+        
+        .loading-message {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            font-size: 1.1rem;
+            color: #7f8c8d;
+        }
+        
+        /* Smooth loading animation */
+        .loading-message::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-left: 10px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
 </head>
 <body>
     <!-- Header -->
@@ -52,8 +84,8 @@
                 <div class="carousel-container">
                     <div class="carousel-track" id="carouselTrack">
                         <!-- Flight cards will be loaded dynamically from JSON -->
-                        <div class="loading-message" style="text-align: center; padding: 2rem; color: #7f8c8d;">
-                            Cargando ofertas de vuelos...
+                        <div class="loading-message">
+                            Cargando ofertas de vuelos
                         </div>
                     </div>
                 </div>
@@ -99,13 +131,13 @@
         </div>
     </footer>
 
-    <!-- Load scripts in correct order -->
+    <!-- Load scripts in correct order for optimal performance -->
+    <script src="js/utils.js"></script>
     <script src="js/flightLoader.js"></script>
     <script src="js/carousel.js"></script>
     <script src="js/animations.js"></script>
     <script>
-         
-          // Intersection Observer para los videos
+        // Intersection Observer para los videos
         const videoObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -116,8 +148,8 @@
             });
         }, { threshold: 0.5 });
 
-// Datos de reels
-         const reels = [
+        // Datos de reels
+        const reels = [
             {
                 id: "RLAPP_MX_CUN_XS_holbox",
                 title: "Conocé Holbox",
@@ -136,10 +168,8 @@
                 video: "https://media.staticontent.com/media/documents/9d3c4ed4-b96f-4473-874b-87996f9d6dec",
                 link: "https://www.despegar.com.ar/lugares-turisticos/cancun"
             }
-
         ];
 
-        // Render reels
         // Render reels
         const reelsContainer = document.getElementById('reels-container');
         reels.forEach(reel => {
@@ -166,7 +196,10 @@
             reelsContainer.appendChild(reelCard);
         });
 
-    
+        // Performance monitoring
+        if (window.PerformanceUtils) {
+            console.log('Performance utilities loaded');
+        }
     </script>
 </body>
 </html>

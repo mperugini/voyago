@@ -180,7 +180,7 @@ body {
 
 .carousel-track {
     display: flex;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     gap: 1.5rem;
     cursor: grab;
 }
@@ -497,4 +497,38 @@ body {
     text-decoration: none;
     font-size: 0.875rem;
     margin-top: 0.5rem;
+}
+
+/* Improved carousel performance */
+.carousel-track {
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+.carousel-container {
+    will-change: transform;
+    overflow: hidden;
+    border-radius: 15px;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Smooth scrolling improvements */
+.flight-card {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Prevent layout shifts during animation */
+.carousel-track * {
+    box-sizing: border-box;
+}
+
+/* Improved touch handling */
+@media (hover: none) and (pointer: coarse) {
+    .carousel-track {
+        touch-action: pan-x;
+    }
 }
