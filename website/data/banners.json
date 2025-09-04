@@ -1,0 +1,36 @@
+{
+  "banners": [
+    {
+      "id": 1,
+      "title": "Mendoza",
+      "href": "#",
+      "ariaLabel": "Mendoza",
+      "imageSrc": "https://media.staticontent.com/media/pictures/8c816274-452d-4297-8bb0-b7a1ac8e197a",
+      "alt": "Mendoza"
+    },
+    {
+      "id": 2,
+      "title": "Bariloche",
+      "href": "#",
+      "ariaLabel": "Bariloche",
+      "imageSrc": "https://media.staticontent.com/media/pictures/0ebe10b4-d15d-434f-a62f-bcbbdbe2ce82",
+      "alt": "Bariloche"
+    },
+    {
+      "id": 3,
+      "title": "Córdoba",
+      "href": "#",
+      "ariaLabel": "Córdoba",
+      "imageSrc": "https://media.staticontent.com/media/pictures/8c816274-452d-4297-8bb0-b7a1ac8e197a",
+      "alt": "Córdoba"
+    },
+    {
+      "id": 4,
+      "title": "Ushuaia",
+      "href": "#",
+      "ariaLabel": "Ushuaia",
+      "imageSrc": "https://media.staticontent.com/media/pictures/8c816274-452d-4297-8bb0-b7a1ac8e197a",
+      "alt": "Ushuaia"
+    }
+  ]
+}
