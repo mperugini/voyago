@@ -1,0 +1,92 @@
+{
+  "flights": [
+    {
+      "id": 1,
+      "category": "Vuelos",
+      "title": "Vuelos para Madrid",
+      "origin": "Saliendo de Buenos Aires",
+      "airline": "Por Iberia",
+      "badge": "Ida y vuelta",
+      "originalPrice": "$ 1.020.000",
+      "currentPrice": "850.000",
+      "image": "https://media.staticontent.com/media/pictures/57fcebe7-e3e6-4465-8f39-32d5f9f73e46"
+    },
+    {
+      "id": 2,
+      "category": "Vuelos",
+      "title": "Vuelos para Barcelona",
+      "origin": "Saliendo de Córdoba",
+      "airline": "Por Air Europa",
+      "badge": "Ida y vuelta",
+      "originalPrice": "$ 900.000",
+      "currentPrice": "720.000",
+      "image": "https://media.staticontent.com/media/pictures/57fcebe7-e3e6-4465-8f39-32d5f9f73e46"
+    },
+    {
+      "id": 3,
+      "category": "Vuelos",
+      "title": "Vuelos para Roma",
+      "origin": "Saliendo de Mendoza",
+      "airline": "Por Alitalia",
+      "badge": "Ida y vuelta",
+      "originalPrice": "$ 1.200.000",
+      "currentPrice": "950.000",
+      "image": "https://media.staticontent.com/media/pictures/57fcebe7-e3e6-4465-8f39-32d5f9f73e46"
+    },
+    {
+      "id": 4,
+      "category": "Vuelos",
+      "title": "Vuelos para París",
+      "origin": "Saliendo de Rosario",
+      "airline": "Por Air France",
+      "badge": "Ida y vuelta",
+      "originalPrice": "$ 1.150.000",
+      "currentPrice": "920.000",
+      "image": "https://media.staticontent.com/media/pictures/57fcebe7-e3e6-4465-8f39-32d5f9f73e46"
+    },
+    {
+      "id": 5,
+      "category": "Vuelos",
+      "title": "Vuelos para Nueva York",
+      "origin": "Saliendo de Buenos Aires",
+      "airline": "Por American Airlines",
+      "badge": "Ida y vuelta",
+      "originalPrice": "$ 980.000",
+      "currentPrice": "780.000",
+      "image": "https://media.staticontent.com/media/pictures/57fcebe7-e3e6-4465-8f39-32d5f9f73e46"
+    },
+    {
+      "id": 6,
+      "category": "Vuelos",
+      "title": "Vuelos para Londres",
+      "origin": "Saliendo de Buenos Aires",
+      "airline": "Por British Airways",
+      "badge": "Ida y vuelta",
+      "originalPrice": "$ 1.100.000",
+      "currentPrice": "880.000",
+      "image": "https://media.staticontent.com/media/pictures/57fcebe7-e3e6-4465-8f39-32d5f9f73e46"
+    },
+    {
+      "id": 7,
+      "category": "Vuelos",
+      "title": "Vuelos para Tokio",
+      "origin": "Saliendo de Buenos Aires",
+      "airline": "Por JAL",
+      "badge": "Ida y vuelta",
+      "originalPrice": "$ 1.800.000",
+      "currentPrice": "1.450.000",
+      "image": "https://media.staticontent.com/media/pictures/57fcebe7-e3e6-4465-8f39-32d5f9f73e46"
+    },
+    {
+      "id": 8,
+      "category": "Vuelos",
+      "title": "Vuelos para Miami",
+      "origin": "Saliendo de Buenos Aires",
+      "airline": "Por American Airlines",
+      "badge": "Ida y vuelta",
+      "originalPrice": "$ 750.000",
+      "currentPrice": "600.000",
+      "image": "https://media.staticontent.com/media/pictures/57fcebe7-e3e6-4465-8f39-32d5f9f73e46"
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shifu Home</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Mobile Navigation Header -->
+    <header class="mobile-nav-header">
+        <div class="nav-mobile-main-container">
+            
+
+            <!-- Products Container -->
+            <div class="products-container">
+                <div class="product-container" data-product="hotels" onclick="navigateTo('hoteles')">
+                    <div class="product-icon-container">
+                        <i class="product-icon -shifu-3-icon-md shifu-3-icon-hotels">🏨</i>
+                    </div>
+                    <div class="product-name-container">Alojamientos</div>
+                </div>
+                
+                <div class="product-container" data-product="flights" onclick="navigateTo('vuelos')">
+                    <div class="product-icon-container">
+                        <i class="product-icon -shifu-3-icon-md shifu-3-icon-flights">✈️</i>
+                    </div>
+                    <div class="product-name-container">Vuelos</div>
+                </div>
+                
+                <div class="product-container" data-product="packages" onclick="navigateTo('paquetes')">
+                    <div class="product-icon-container">
+                        <i class="product-icon -shifu-3-icon-md shifu-3-icon-packages">🎒</i>
+                    </div>
+                    <div class="product-driver-container warning">Ahorra</div>
+                    <div class="product-name-container">Paquetes</div>
+                </div>
+                
+                <div class="product-container" data-product="more" onclick="openBottomSheet()">
+                    <div class="product-icon-container">
+                        <i class="product-icon -shifu-3-icon-md shifu-3-icon-plus">➕</i>
+                    </div>
+                    <div class="product-name-container">Ver todos</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="home-container">
+        <div class="hero-section">
+            <h1 class="hero-title">🚀 A Rolar Viajes</h1>
+            <p class="hero-subtitle">Tu plataforma de viajes favorita</p>
+        </div>
+        
+        <!-- Botones de Acción Principales -->
+        <div class="action-buttons">
+            <button class="action-btn btn-vuelos" onclick="navigateTo('vuelos')">
+                <span class="btn-icon">✈️</span>
+                <span class="btn-text">Vuelos</span>
+            </button>
+            
+            <button class="action-btn btn-hoteles" onclick="navigateTo('hoteles')">
+                <span class="btn-icon">🏨</span>
+                <span class="btn-text">Hoteles</span>
+            </button>
+            
+            <button class="action-btn btn-more" onclick="openBottomSheet()">
+                <span class="btn-icon">➕</span>
+                <span class="btn-text">Más Opciones</span>
+            </button>
+        </div>
+        
+        <div class="info-section">
+            <p class="info-text">
+                💡 <strong>Tip:</strong> Toca el botón ➕ para abrir el menú de navegación
+            </p>
+            <p class="info-text" style="margin-top: 0.5rem; font-size: 0.9rem; opacity: 0.8;">
+                📱 <strong>Drag Nativo:</strong> Desliza hacia abajo en el header de la bottomsheet para cerrarla
+            </p>
+            
+            <div style="margin-top: 1.5rem; text-align: center;">
+                <button class="bottomsheet-trigger" onclick="openBottomSheet()">
+                    📱 Abrir BottomSheet
+                </button>
+                <p class="shifu-3-caption" style="margin-top: 0.5rem; font-size: 0.8rem; opacity: 0.7;">
+                    Menú completo de navegación
+                </p>
+            </div>
+        </div>
+    </main>
+
+    <!-- BottomSheet Component -->
+    <div class="bottomsheet-overlay" id="bottomsheetOverlay"></div>
+    
+    <div class="bottomsheet" id="bottomsheet">
+        <div class="bottomsheet-header">
+            <div class="bottomsheet-handle"></div>
+            <h3 class="bottomsheet-title">Menú de Navegación</h3>
+            <div class="bottomsheet-progress" id="bottomsheetProgress"></div>
+        </div>
+        
+        <div class="bottomsheet-content">
+            <div class="menu-section">
+                <h4>🌍 Viajes</h4>
+                <div class="menu-item" onclick="navigateTo('vuelos')">
+                    <span class="menu-icon">✈️</span>
+                    <span class="menu-text">Vuelos</span>
+                </div>
+                <div class="menu-item" onclick="navigateTo('hoteles')">
+                    <span class="menu-icon">🏨</span>
+                    <span class="menu-text">Hoteles</span>
+                </div>
+                <div class="menu-item" onclick="navigateTo('paquetes')">
+                    <span class="menu-icon">🎒</span>
+                    <span class="menu-text">Paquetes</span>
+                </div>
+                <div class="menu-item" onclick="navigateTo('autos')">
+                    <span class="menu-icon">🚗</span>
+                    <span class="menu-text">Autos</span>
+                </div>
+            </div>
+            
+            <div class="menu-section">
+                <h4>🎭 Experiencias</h4>
+                <div class="menu-item" onclick="navigateTo('actividades')">
+                    <span class="menu-icon">🎭</span>
+                    <span class="menu-text">Actividades</span>
+                </div>
+                <div class="menu-item" onclick="navigateTo('eventos')">
+                    <span class="menu-icon">🎪</span>
+                    <span class="menu-text">Eventos</span>
+                </div>
+                <div class="menu-item" onclick="navigateTo('tours')">
+                    <span class="menu-icon">🗺️</span>
+                    <span class="menu-text">Tours Guiados</span>
+                </div>
+            </div>
+            
+            <div class="menu-section">
+                <h4>⚙️ Configuración</h4>
+                <div class="menu-item" onclick="navigateTo('perfil')">
+                    <span class="menu-icon">👤</span>
+                    <span class="menu-text">Mi Perfil</span>
+                </div>
+                <div class="menu-item" onclick="navigateTo('reservas')">
+                    <span class="menu-icon">📋</span>
+                    <span class="menu-text">Mis Reservas</span>
+                </div>
+                <div class="menu-item" onclick="navigateTo('ayuda')">
+                    <span class="menu-icon">❓</span>
+                    <span class="menu-text">Ayuda</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bottomsheet.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html> 
