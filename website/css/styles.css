@@ -52,6 +52,24 @@ body {
     padding: 1rem 0;
 }
 
+.nav-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: rgb(141, 135, 135);
+    color: #667eea;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid white;
+}
+
+.nav-btn:hover {
+    background: transparent;
+    color: white;
+    transform: translateY(-2px);
+}
+
 .logo {
     height: 40px;
     display: flex;
@@ -72,13 +90,13 @@ body {
 
 .nav-links a {
     text-decoration: none;
-    color: #333;
+    color: #e46e0e;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .nav-links a:hover {
-    color: #667eea;
+    color: #e22f0f;
 }
 
 /* Main Content */
@@ -180,7 +198,7 @@ body {
 
 .carousel-track {
     display: flex;
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     gap: 1.5rem;
     cursor: grab;
 }
@@ -353,7 +371,7 @@ body {
 .btn {
     display: inline-block;
     padding: 12px 30px;
-    background: white;
+    background: rgb(232, 229, 229);
     color: #667eea;
     text-decoration: none;
     border-radius: 25px;
@@ -531,4 +549,68 @@ body {
     .carousel-track {
         touch-action: pan-x;
     }
+}
+
+/* Enhanced carousel smoothness */
+.carousel-track {
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+.carousel-container {
+    will-change: transform;
+    overflow: hidden;
+    border-radius: 15px;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+/* Improved touch handling for better responsiveness */
+@media (hover: none) and (pointer: coarse) {
+    .carousel-track {
+        touch-action: pan-x;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+}
+
+/* Prevent text selection during drag */
+.carousel-track * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Smooth hardware acceleration */
+.flight-card {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+}
+
+/* Improved cursor states */
+.carousel-track {
+    cursor: grab;
+}
+
+.carousel-track:active {
+    cursor: grabbing;
+}
+
+.carousel-track.dragging {
+    cursor: grabbing;
 }

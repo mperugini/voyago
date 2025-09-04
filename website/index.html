@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Shifu</title>
     <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/home.css">
     <style>
         /* Prevent layout shifts during loading */
         .carousel-track {
@@ -68,10 +69,65 @@
     <!-- Main Content -->
     <main class="main">
         <div class="container">
+            
+            <section class="home_module" id="banners_mkt">
+                <h2>Destinos Destacados</h2>
+                <div class="banners-horizontal-scroll">
+                    <div class="banner-item">
+                        <a class="link" href="https://www.despegar.com.ar/ofertas-viajes/mendoza?H=MKT_2" aria-label="Mendoza">
+                            <div class="multi-banner-wrapper">
+                                <img loading="lazy" class="picture" src="//media.staticontent.com/media/pictures/8c816274-452d-4297-8bb0-b7a1ac8e197a" alt="Mendoza" />
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="banner-item">
+                        <a class="link" href="https://www.despegar.com.ar/ofertas-viajes/bariloche?H=MKT_2" aria-label="Bariloche">
+                            <div class="multi-banner-wrapper">
+                                <img loading="lazy" class="picture" src="//media.staticontent.com/media/pictures/8c816274-452d-4297-8bb0-b7a1ac8e197a" alt="Bariloche" />
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="banner-item">
+                        <a class="link" href="https://www.despegar.com.ar/ofertas-viajes/cordoba?H=MKT_2" aria-label="Córdoba">
+                            <div class="multi-banner-wrapper">
+                                <img loading="lazy" class="picture" src="//media.staticontent.com/media/pictures/8c816274-452d-4297-8bb0-b7a1ac8e197a" alt="Córdoba" />
+                            </div>
+                        </a>
+                    </div>
+                    
+                    <div class="banner-item">
+                        <a class="link" href="https://www.despegar.com.ar/ofertas-viajes/ushuaia?H=MKT_2" aria-label="Ushuaia">
+                            <div class="multi-banner-wrapper">
+                                <img loading="lazy" class="picture" src="//media.staticontent.com/media/pictures/8c816274-452d-4297-8bb0-b7a1ac8e197a" alt="Ushuaia" />
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="home_module" id="reels">
+                <h2>Reels</h2>
+                <div class="reels-scroll" id="reels-container"></div>
+            </section>
+
+            <section class="home_module" id="offers">
+                <h2>Ofertas</h2>
+            </section>
+
+            <section class="home_module" id="flights">
+                <h2>Vuelos</h2>
+            </section>
+
+            <section class="home_module" id="hotels">
+                <h2>Hoteles</h2>
+            </section>
+
             <!-- Hero Section -->
             <section class="reels">
                 <h2>Descubre el mundo con nosotros</h2>
-                <div class="reels-scroll" id="reels-container"></div>
+                
             </section>
 
             <!-- Flight Carousel -->
@@ -137,6 +193,7 @@
     <script src="js/carousel.js"></script>
     <script src="js/animations.js"></script>
     <script src="js/carouselTest.js"></script>
+    <script src="js/bannersScroll.js"></script>
     <script>
         // Intersection Observer para los videos
         const videoObserver = new IntersectionObserver((entries) => {

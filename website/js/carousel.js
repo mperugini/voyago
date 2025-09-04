@@ -1,4 +1,4 @@
-// Carousel functionality with improved smooth scrolling
+// Carousel functionality with improved smooth scrolling and navigation
 let carouselTrack = null;
 let cards = null;
 let currentIndex = 0;
@@ -11,6 +11,7 @@ let maxIndex = 0;
 let cardWidth = 280 + 24; // 280px card width + 24px gap (1.5rem = 24px)
 let animationFrame = null;
 let isInitialized = false;
+let isAnimating = false;
 
 function initializeCarousel() {
     carouselTrack = document.getElementById('carouselTrack');
@@ -31,15 +32,21 @@ function initializeCarousel() {
         loadingMessage.remove();
     }
     
+    // Calculate cards per view based on screen size
     cardsPerView = window.innerWidth <= 768 ? 1 : 3;
+    
+    // Fix: Allow scrolling to show all cards, not just up to maxIndex
+    // maxIndex should be the last position where we can show cardsPerView cards
     maxIndex = Math.max(0, cards.length - cardsPerView);
+    
+    // Reset to first position
     currentIndex = 0;
     
     // Ensure carousel track has proper styles
     carouselTrack.style.transform = 'translateX(0px)';
-    carouselTrack.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+    carouselTrack.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
     
-    console.log(`Carousel initialized with ${cards.length} cards`);
+    console.log(`Carousel initialized with ${cards.length} cards, maxIndex: ${maxIndex}`);
     updateCarousel(false); // Initialize without animation
     setupEventListeners();
     isInitialized = true;
@@ -49,6 +56,9 @@ function initializeCarousel() {
 function updateCarousel(animate = true) {
     if (!carouselTrack || !isInitialized) return;
     
+    // Prevent multiple animations
+    if (isAnimating && animate) return;
+    
     // Cancel any ongoing animation
     if (animationFrame) {
         cancelAnimationFrame(animationFrame);
@@ -57,10 +67,17 @@ function updateCarousel(animate = true) {
     const translateX = -currentIndex * cardWidth;
     
     if (animate) {
-        carouselTrack.style.transition = 'transform 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+        isAnimating = true;
+        carouselTrack.style.transition = 'transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+        
         // Use requestAnimationFrame for smoother animation
         animationFrame = requestAnimationFrame(() => {
             carouselTrack.style.transform = `translateX(${translateX}px)`;
+            
+            // Reset animation flag after transition completes
+            setTimeout(() => {
+                isAnimating = false;
+            }, 400);
         });
     } else {
         carouselTrack.style.transition = 'none';
@@ -75,6 +92,7 @@ function moveToIndex(index, animate = true) {
     if (newIndex !== currentIndex) {
         currentIndex = newIndex;
         updateCarousel(animate);
+        console.log(`Moved to index ${currentIndex} of ${maxIndex}`);
     }
 }
 
@@ -104,7 +122,7 @@ function setupEventListeners() {
 
 // Touch events for mobile swipe
 function handleTouchStart(e) {
-    if (!isInitialized) return;
+    if (!isInitialized || isAnimating) return;
     
     startX = e.touches[0].clientX;
     startTransform = -currentIndex * cardWidth;
@@ -129,10 +147,12 @@ function handleTouchMove(e) {
     // Apply resistance at boundaries with smoother curve
     let boundedTransform = newTransform;
     if (newTransform > 0) {
-        boundedTransform = newTransform * 0.3;
+        // Swiping right at the beginning
+        boundedTransform = newTransform * 0.4;
     } else if (newTransform < -maxIndex * cardWidth) {
+        // Swiping left at the end
         const excess = Math.abs(newTransform + maxIndex * cardWidth);
-        boundedTransform = -maxIndex * cardWidth - (excess * 0.3);
+        boundedTransform = -maxIndex * cardWidth - (excess * 0.4);
     }
     
     carouselTrack.style.transform = `translateX(${boundedTransform}px)`;
@@ -144,24 +164,35 @@ function handleTouchEnd() {
     
     isDragging = false;
     const diffX = currentX - startX;
-    const threshold = cardWidth * 0.25; // Reduced threshold for more responsive swiping
+    const threshold = cardWidth * 0.2; // Reduced threshold for more responsive swiping
     
     if (Math.abs(diffX) > threshold) {
-        if (diffX > 0 && currentIndex > 0) {
-            moveToIndex(currentIndex - 1);
-        } else if (diffX < 0 && currentIndex < maxIndex) {
-            moveToIndex(currentIndex + 1);
+        if (diffX > 0) {
+            // Swipe right - go to previous
+            if (currentIndex > 0) {
+                moveToIndex(currentIndex - 1);
+            } else {
+                // At the beginning, snap back
+                updateCarousel();
+            }
         } else {
-            updateCarousel();
+            // Swipe left - go to next
+            if (currentIndex < maxIndex) {
+                moveToIndex(currentIndex + 1);
+            } else {
+                // At the end, snap back
+                updateCarousel();
+            }
         }
     } else {
+        // Not enough swipe - snap back
         updateCarousel();
     }
 }
 
 // Mouse events for desktop drag
 function handleMouseDown(e) {
-    if (!isInitialized) return;
+    if (!isInitialized || isAnimating) return;
     
     e.preventDefault();
     startX = e.clientX;
@@ -187,10 +218,10 @@ function handleMouseMove(e) {
     // Apply resistance at boundaries
     let boundedTransform = newTransform;
     if (newTransform > 0) {
-        boundedTransform = newTransform * 0.3;
+        boundedTransform = newTransform * 0.4;
     } else if (newTransform < -maxIndex * cardWidth) {
         const excess = Math.abs(newTransform + maxIndex * cardWidth);
-        boundedTransform = -maxIndex * cardWidth - (excess * 0.3);
+        boundedTransform = -maxIndex * cardWidth - (excess * 0.4);
     }
     
     carouselTrack.style.transform = `translateX(${boundedTransform}px)`;
@@ -202,15 +233,23 @@ function handleMouseUp() {
     isDragging = false;
     carouselTrack.style.cursor = 'grab';
     const diffX = currentX - startX;
-    const threshold = cardWidth * 0.25;
+    const threshold = cardWidth * 0.2;
     
     if (Math.abs(diffX) > threshold) {
-        if (diffX > 0 && currentIndex > 0) {
-            moveToIndex(currentIndex - 1);
-        } else if (diffX < 0 && currentIndex < maxIndex) {
-            moveToIndex(currentIndex + 1);
+        if (diffX > 0) {
+            // Drag right - go to previous
+            if (currentIndex > 0) {
+                moveToIndex(currentIndex - 1);
+            } else {
+                updateCarousel();
+            }
         } else {
-            updateCarousel();
+            // Drag left - go to next
+            if (currentIndex < maxIndex) {
+                moveToIndex(currentIndex + 1);
+            } else {
+                updateCarousel();
+            }
         }
     } else {
         updateCarousel();
@@ -246,6 +285,7 @@ window.addEventListener('resize', () => {
         maxIndex = newMaxIndex;
         cardsPerView = newCardsPerView;
         updateCarousel(false);
+        console.log(`Resized: cardsPerView=${cardsPerView}, maxIndex=${maxIndex}, currentIndex=${currentIndex}`);
     }, 150);
 });
 
@@ -253,6 +293,7 @@ window.addEventListener('resize', () => {
 document.addEventListener('flightCardsLoaded', () => {
     console.log('Flight cards loaded, reinitializing carousel...');
     isInitialized = false;
+    isAnimating = false;
     
     // Wait for DOM to be fully updated
     setTimeout(() => {
@@ -281,7 +322,17 @@ function cleanupCarousel() {
         animationFrame = null;
     }
     isInitialized = false;
+    isAnimating = false;
 }
+
+// Expose functions globally for debugging
+window.carouselDebug = {
+    getCurrentIndex: () => currentIndex,
+    getMaxIndex: () => maxIndex,
+    getCardsPerView: () => cardsPerView,
+    moveToIndex: moveToIndex,
+    getCardsCount: () => cards ? cards.length : 0
+};
 
 // Expose cleanup function globally
 window.cleanupCarousel = cleanupCarousel;

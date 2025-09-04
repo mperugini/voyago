@@ -1,0 +1,112 @@
+
+.home_module {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.home_module h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.home_module p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+.multi-banner {display:grid;overflow:auto;position:relative;grid-gap:16px}
+.multi-banner.banners-1{grid-template-columns:1fr}
+.multi-banner.banners-2{grid-template-columns:1fr 1fr}
+.multi-banner.banners-3{grid-template-columns:2fr 1fr 1fr}
+
+.multi-banner img{width:100%;height:100%;object-fit:cover}
+.multi-banner a{display:block;width:100%;height:100%;color:inherit}
+.multi-banner .banner-content{position:absolute;top:0;display:flex;flex-direction:column}
+.multi-banner .fallback-banner{position:absolute;top:0;z-index:-1;height:100%}
+.multi-banner-wrapper{width:100%;height:100%}
+.clickable{cursor:pointer}
+
+/* Clean horizontal scroll banners */
+.banners-horizontal-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 16px;
+    padding: 16px 0;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    
+    /* Hide scrollbars completely */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+}
+
+.banners-horizontal-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.banner-item {
+    flex: 0 0 280px; /* Fixed width of 280px */
+    height: 245px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+}
+
+.banner-item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.banner-item .link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.banner-item .multi-banner-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.banner-item .picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.banner-item:hover .picture {
+    transform: scale(1.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .banner-item {
+        flex: 0 0 240px; /* Slightly smaller on mobile */
+        height: 210px;
+    }
+    
+    .banners-horizontal-scroll {
+        gap: 12px;
+        padding: 12px 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .banner-item {
+        flex: 0 0 200px; /* Even smaller on small mobile */
+        height: 175px;
+    }
+    
+    .banners-horizontal-scroll {
+        gap: 8px;
+        padding: 8px 0;
+    }
+}
