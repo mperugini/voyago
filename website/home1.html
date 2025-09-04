@@ -37,9 +37,9 @@
     <main class="main">
         <div class="container">
             <!-- Hero Section -->
-            <section class="hero">
+            <section class="reels">
                 <h2>Descubre el mundo con nosotros</h2>
-                <p>Encuentra las mejores ofertas en vuelos, hoteles y paquetes de viaje. Planifica tu próxima aventura con nuestra plataforma inteligente.</p>
+                <div class="reels-scroll" id="reels-container"></div>
             </section>
 
             <!-- Flight Carousel -->
@@ -95,7 +95,7 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Shifu. Todos los derechos reservados.</p>
+            <p>&copy; 2025 A Rolar. Todos los derechos reservados.</p>
         </div>
     </footer>
 
@@ -103,5 +103,71 @@
     <script src="js/flightLoader.js"></script>
     <script src="js/carousel.js"></script>
     <script src="js/animations.js"></script>
+    <script>
+         
+          // Intersection Observer para los videos
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.play();
+                } else {
+                    entry.target.pause();
+                }
+            });
+        }, { threshold: 0.5 });
+
+// Datos de reels
+         const reels = [
+            {
+                id: "RLAPP_MX_CUN_XS_holbox",
+                title: "Conocé Holbox",
+                video: "https://media.staticontent.com/media/documents/683b7593-35d7-40e2-a45d-79f8fc4ee572",
+                link: "https://www.despegar.com.ar/actividades/ih1/actividades-en-isla+holbox"
+            },
+            {
+                id: "RLAPP_MX_CUN_INSPI_espera",
+                title: "Cancún te espera",
+                video: "https://media.staticontent.com/media/documents/dfe8b066-8511-4fef-adda-63ad5d3d4f02",
+                link: "https://www.despegar.com.ar/lugares-turisticos/cancun"
+            },
+            {
+                id: "RLAPP_MX_CUN_ADV_bbb",
+                title: "Bueno, bonito y barato",
+                video: "https://media.staticontent.com/media/documents/9d3c4ed4-b96f-4473-874b-87996f9d6dec",
+                link: "https://www.despegar.com.ar/lugares-turisticos/cancun"
+            }
+
+        ];
+
+        // Render reels
+        // Render reels
+        const reelsContainer = document.getElementById('reels-container');
+        reels.forEach(reel => {
+            const reelCard = document.createElement('div');
+            reelCard.className = 'reel-card';
+            reelCard.innerHTML = `
+                <video 
+                    src="${reel.video}"
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                >
+                </video>
+                <div class="reel-info">
+                    <h3 class="reel-title">${reel.title}</h3>
+                    <a href="${reel.link}" class="reel-cta">Ver más</a>
+                </div>
+            `;
+            
+            const video = reelCard.querySelector('video');
+            videoObserver.observe(video);
+            
+            reelsContainer.appendChild(reelCard);
+        });
+
+    
+    </script>
 </body>
 </html>
+
