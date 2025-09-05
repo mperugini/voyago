@@ -1,43 +1,82 @@
-/* Reels Module Styles */
+/* Reels Module Styles - Ultra Smooth Mobile Scroll */
 .reels-module {
     text-align: center;
     margin-bottom: 2rem;
 }
 
-/* Reels scroll container */
+.reels-module h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.reels-module p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+/* Ultra smooth reels scroll container - Mobile optimized */
 .reels-scroll {
     display: flex;
     overflow-x: auto;
-    gap: 16px;
-    padding: 16px 0;
+    gap: 12px;
+    padding: 12px 0;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     
     /* Hide scrollbars completely */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
+    
+    /* Mobile scroll optimizations */
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 12px;
+    
+    /* Performance optimizations */
+    will-change: scroll-position;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .reels-scroll::-webkit-scrollbar {
     display: none; /* Chrome, Safari, Opera */
 }
 
-/* Reel card styles */
+/* Reel card styles - Mobile optimized */
 .reel-card {
-    flex: 0 0 128px; /* Fixed width */
-    height: 176px;
+    flex: 0 0 280px; /* Fixed width */
+    height: 400px;
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: grab;
     position: relative;
     background: #000;
+    
+    /* Scroll snap */
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.reel-card:active {
+    cursor: grabbing;
 }
 
 .reel-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    transform: translateY(-2px) translateZ(0);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
 .reel-card video {
@@ -45,6 +84,13 @@
     height: 100%;
     object-fit: cover;
     border-radius: 16px;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 /* Reel info overlay */
@@ -75,17 +121,17 @@
     text-decoration: none;
     font-size: 0.9rem;
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
     text-shadow: none;
 }
 
 .reel-cta:hover {
     background: #5a6fd8;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    transform: translateY(-1px);
+    box-shadow: 0 3px 8px rgba(102, 126, 234, 0.4);
 }
 
-/* Enhanced touch support */
+/* Enhanced mobile touch support */
 @media (hover: none) and (pointer: coarse) {
     .reels-scroll {
         touch-action: pan-x;
@@ -95,6 +141,7 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+        -webkit-overflow-scrolling: touch;
     }
     
     .reel-card {
@@ -104,19 +151,21 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+        touch-action: manipulation;
     }
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .reel-card {
-        flex: 0 0 146px; /* Slightly smaller on mobile */
-        height: 220px;
+        flex: 0 0 240px; /* Slightly smaller on mobile */
+        height: 350px;
     }
     
     .reels-scroll {
-        gap: 12px;
-        padding: 12px 0;
+        gap: 10px;
+        padding: 10px 0;
+        scroll-padding: 10px;
     }
     
     .reel-info {
@@ -128,3 +177,28 @@
     }
 }
 
+@media (max-width: 480px) {
+    .reel-card {
+        flex: 0 0 200px; /* Even smaller on small mobile */
+        height: 300px;
+    }
+    
+    .reels-scroll {
+        gap: 8px;
+        padding: 8px 0;
+        scroll-padding: 8px;
+    }
+    
+    .reel-info {
+        padding: 12px;
+    }
+    
+    .reel-title {
+        font-size: 1rem;
+    }
+    
+    .reel-cta {
+        padding: 6px 12px;
+        font-size: 0.8rem;
+    }
+}

@@ -1,4 +1,4 @@
-/* Banners Module Styles */
+/* Banners Module Styles - Ultra Smooth Mobile Scroll */
 .banners-module {
     text-align: center;
     margin-bottom: 2rem;
@@ -15,18 +15,31 @@
     font-size: 1.1rem;
 }
 
-/* Simple and smooth horizontal scroll banners */
+/* Ultra smooth horizontal scroll banners - Mobile optimized */
 .banners-horizontal-scroll {
     display: flex;
     overflow-x: auto;
-    gap: 16px;
-    padding: 16px 0;
+    gap: 12px;
+    padding: 12px 0;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     
     /* Hide scrollbars completely */
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
+    
+    /* Mobile scroll optimizations */
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 12px;
+    
+    /* Performance optimizations */
+    will-change: scroll-position;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .banners-horizontal-scroll::-webkit-scrollbar {
@@ -39,8 +52,19 @@
     border-radius: 12px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
     cursor: grab;
+    
+    /* Scroll snap */
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .banner-item:active {
@@ -48,8 +72,8 @@
 }
 
 .banner-item:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    transform: translateY(-2px) translateZ(0);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .banner-item .link {
@@ -72,14 +96,21 @@
     height: 100%;
     object-fit: cover;
     border-radius: 12px;
-    transition: transform 0.3s ease;
+    transition: transform 0.2s ease;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
 .banner-item:hover .picture {
-    transform: scale(1.05);
+    transform: scale(1.02) translateZ(0);
 }
 
-/* Enhanced touch support */
+/* Enhanced mobile touch support */
 @media (hover: none) and (pointer: coarse) {
     .banners-horizontal-scroll {
         touch-action: pan-x;
@@ -89,6 +120,7 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+        -webkit-overflow-scrolling: touch;
     }
     
     .banner-item {
@@ -98,6 +130,7 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
+        touch-action: manipulation;
     }
 }
 
@@ -109,8 +142,9 @@
     }
     
     .banners-horizontal-scroll {
-        gap: 12px;
-        padding: 12px 0;
+        gap: 10px;
+        padding: 10px 0;
+        scroll-padding: 10px;
     }
 }
 
@@ -123,5 +157,6 @@
     .banners-horizontal-scroll {
         gap: 8px;
         padding: 8px 0;
+        scroll-padding: 8px;
     }
 }

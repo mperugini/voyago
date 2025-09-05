@@ -598,3 +598,173 @@ body {
 .carousel-track.dragging {
     cursor: grabbing;
 }
+
+/* Enhanced Flight Carousel - Ultra Smooth Mobile Scroll */
+.flight-carousel {
+    margin-bottom: 4rem;
+}
+
+.carousel-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.carousel-header h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.carousel-header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 12px;
+    
+    /* Performance optimizations */
+    will-change: scroll-position;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    gap: 12px;
+    cursor: grab;
+    padding: 0 12px;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.carousel-track:active {
+    cursor: grabbing;
+}
+
+/* Enhanced Flight Card - Mobile optimized */
+.flight-card {
+    width: 280px;
+    background: white;
+    border-radius: 8px;
+    border: 0.5px solid rgba(222, 224, 232, 1);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    
+    /* Scroll snap */
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.flight-card:hover {
+    transform: translateY(-4px) translateZ(0);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.flight-image {
+    width: 280px;
+    height: 174px;
+    background: rgba(128, 58, 69, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    position: relative;
+    background-image: url('https://media.staticontent.com/media/pictures/57fcebe7-e3e6-4465-8f39-32d5f9f73e46');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Enhanced mobile touch support for carousel */
+@media (hover: none) and (pointer: coarse) {
+    .carousel-container {
+        touch-action: pan-x;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .carousel-track {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    .flight-card {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        touch-action: manipulation;
+    }
+}
+
+/* Responsive adjustments for carousel */
+@media (max-width: 768px) {
+    .flight-card {
+        width: 240px;
+    }
+    
+    .flight-image {
+        width: 240px;
+        height: 150px;
+    }
+    
+    .carousel-track {
+        gap: 10px;
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .flight-card {
+        width: 200px;
+    }
+    
+    .flight-image {
+        width: 200px;
+        height: 125px;
+    }
+    
+    .carousel-track {
+        gap: 8px;
+        padding: 0 8px;
+    }
+}

@@ -38,6 +38,16 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+        
+        /* Global mobile optimizations */
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+        
+        body {
+            -webkit-overflow-scrolling: touch;
+            overscroll-behavior: contain;
+        }
     </style>
 </head>
 <body>
@@ -158,6 +168,7 @@
 
     <!-- Load scripts in correct order for optimal performance -->
     <script src="js/utils.js"></script>
+    <script src="js/ultraSmoothScroll.js"></script>
     <script src="js/bannersModule.js"></script>
     <script src="js/reelsModule.js"></script>
     <script src="js/flightLoader.js"></script>

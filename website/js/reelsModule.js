@@ -1,4 +1,4 @@
-// Reels Module - Encapsulated and modular
+// Reels Module - Ultra Smooth Mobile Scroll
 class ReelsModule {
     constructor() {
         this.reelsData = null;
@@ -75,7 +75,7 @@ class ReelsModule {
 
         // Create the module structure
         this.container.innerHTML = `
-            <h2>Descubrí el mundo con nosotros</h2>
+            <h2>Reels</h2>
             <div class="reels-scroll" id="reelsScrollContainer">
                 <!-- Reels will be loaded here -->
             </div>
@@ -115,79 +115,6 @@ class ReelsModule {
         });
     }
 
-    setupScrollFunctionality() {
-        if (!this.scrollContainer) {
-            console.error('Scroll container not found');
-            return;
-        }
-
-        // Simple and smooth wheel scroll
-        this.scrollContainer.addEventListener('wheel', (e) => {
-            e.preventDefault();
-            const scrollAmount = e.deltaY * 0.6; // Reduced for ultra smooth feel
-            this.scrollContainer.scrollLeft += scrollAmount;
-        });
-
-        // Simple touch/swipe support
-        let startX = 0;
-        let scrollLeft = 0;
-        let isDragging = false;
-
-        this.scrollContainer.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            startX = e.touches[0].pageX - this.scrollContainer.offsetLeft;
-            scrollLeft = this.scrollContainer.scrollLeft;
-        });
-
-        this.scrollContainer.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            
-            e.preventDefault();
-            const x = e.touches[0].pageX - this.scrollContainer.offsetLeft;
-            const walk = (x - startX) * 0.8; // Reduced for smoother feel
-            this.scrollContainer.scrollLeft = scrollLeft - walk;
-        });
-
-        this.scrollContainer.addEventListener('touchend', () => {
-            isDragging = false;
-        });
-
-        // Simple mouse drag support
-        let mouseStartX = 0;
-        let mouseScrollLeft = 0;
-        let isMouseDragging = false;
-
-        this.scrollContainer.addEventListener('mousedown', (e) => {
-            isMouseDragging = true;
-            mouseStartX = e.pageX - this.scrollContainer.offsetLeft;
-            mouseScrollLeft = this.scrollContainer.scrollLeft;
-            this.scrollContainer.style.cursor = 'grabbing';
-            e.preventDefault();
-        });
-
-        this.scrollContainer.addEventListener('mousemove', (e) => {
-            if (!isMouseDragging) return;
-            
-            e.preventDefault();
-            const x = e.pageX - this.scrollContainer.offsetLeft;
-            const walk = (x - mouseStartX) * 0.8; // Reduced for smoother feel
-            this.scrollContainer.scrollLeft = mouseScrollLeft - walk;
-        });
-
-        this.scrollContainer.addEventListener('mouseup', () => {
-            isMouseDragging = false;
-            this.scrollContainer.style.cursor = 'grab';
-        });
-
-        this.scrollContainer.addEventListener('mouseleave', () => {
-            isMouseDragging = false;
-            this.scrollContainer.style.cursor = 'grab';
-        });
-
-        // Set initial cursor
-        this.scrollContainer.style.cursor = 'grab';
-    }
-
     async initialize() {
         if (this.isInitialized) {
             console.log('Reels module already initialized');
@@ -197,7 +124,6 @@ class ReelsModule {
         await this.loadReelsData();
         this.renderReels();
         this.setupVideoObserver();
-        this.setupScrollFunctionality();
         
         this.isInitialized = true;
         console.log('Reels module initialized successfully');
