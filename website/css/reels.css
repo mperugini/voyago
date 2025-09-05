@@ -3,7 +3,7 @@
     text-align: center;
     margin-bottom: 2rem;
 }
-
+/*
 .reels-module h2 {
     font-size: 2rem;
     color: #2c3e50;
@@ -14,7 +14,7 @@
     color: #7f8c8d;
     font-size: 1.1rem;
 }
-
+*/
 /* Reels scroll container */
 .reels-scroll {
     display: flex;
@@ -121,8 +121,8 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .reel-card {
-        flex: 0 0 156px; /* Slightly smaller on mobile */
-        height: 256px;
+        flex: 0 0 256px; /* Slightly smaller on mobile */
+        height: 356px;
     }
     
     .reels-scroll {
@@ -139,27 +139,3 @@
     }
 }
 
-@media (max-width: 480px) {
-    .reel-card {
-        flex: 0 0 200px; /* Even smaller on small mobile */
-        height: 180px;
-    }
-    
-    .reels-scroll {
-        gap: 8px;
-        padding: 8px 0;
-    }
-    
-    .reel-info {
-        padding: 12px;
-    }
-    
-    .reel-title {
-        font-size: 0.5rem;
-    }
-    
-    .reel-cta {
-        padding: 6px 12px;
-        font-size: 0.8rem;
-    }
-}

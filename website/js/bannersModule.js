@@ -71,7 +71,7 @@ class BannersModule {
 
         // Create the module structure
         this.container.innerHTML = `
-            <h2>Destinos Destacados</h2>
+            
             <div class="banners-horizontal-scroll" id="bannersScrollContainer">
                 <!-- Banners will be loaded here -->
             </div>
