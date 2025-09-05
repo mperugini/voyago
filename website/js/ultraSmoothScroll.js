@@ -1,4 +1,4 @@
-// Ultra Smooth Scroll - Mobile optimized scroll behavior
+// Ultra Smooth Scroll - Mobile optimized scroll behavior with vertical scroll support
 class UltraSmoothScroll {
     constructor() {
         this.scrollContainers = [];
@@ -28,31 +28,40 @@ class UltraSmoothScroll {
     }
 
     optimizeContainer(container) {
-        // Enhanced wheel scroll with momentum
+        // Enhanced wheel scroll with momentum - only prevent if horizontal scroll is needed
         container.addEventListener('wheel', (e) => {
-            e.preventDefault();
+            // Only prevent default if we're actually scrolling horizontally
+            const isScrollingHorizontally = Math.abs(e.deltaX) > Math.abs(e.deltaY);
+            const isAtBoundary = this.isAtScrollBoundary(container, e.deltaX);
             
-            // Smooth wheel scrolling with momentum
-            const scrollAmount = e.deltaY * 0.4; // Reduced for ultra smooth feel
-            container.scrollLeft += scrollAmount;
+            if (isScrollingHorizontally || isAtBoundary) {
+                e.preventDefault();
+                const scrollAmount = e.deltaY * 0.4;
+                container.scrollLeft += scrollAmount;
+            }
+            // If scrolling vertically, let it pass through
         }, { passive: false });
 
-        // Enhanced touch/swipe with momentum and resistance
+        // Enhanced touch/swipe with momentum and resistance - smart vertical scroll detection
         let startX = 0;
+        let startY = 0;
         let scrollLeft = 0;
         let isDragging = false;
+        let isHorizontalScroll = false;
         let velocity = 0;
         let lastX = 0;
         let lastTime = 0;
         let animationFrame = null;
 
         container.addEventListener('touchstart', (e) => {
-            isDragging = true;
             startX = e.touches[0].pageX - container.offsetLeft;
+            startY = e.touches[0].pageY - container.offsetTop;
             scrollLeft = container.scrollLeft;
             velocity = 0;
             lastX = e.touches[0].pageX;
             lastTime = Date.now();
+            isDragging = false;
+            isHorizontalScroll = false;
             
             // Cancel any ongoing animation
             if (animationFrame) {
@@ -61,21 +70,36 @@ class UltraSmoothScroll {
         }, { passive: true });
 
         container.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
+            if (isDragging === false) {
+                // Determine scroll direction on first move
+                const deltaX = Math.abs(e.touches[0].pageX - startX);
+                const deltaY = Math.abs(e.touches[0].pageY - startY);
+                
+                // Only start horizontal scrolling if horizontal movement is greater
+                if (deltaX > deltaY && deltaX > 10) {
+                    isHorizontalScroll = true;
+                    isDragging = true;
+                } else if (deltaY > deltaX && deltaY > 10) {
+                    // Vertical scroll detected, don't interfere
+                    return;
+                }
+            }
+            
+            if (!isDragging || !isHorizontalScroll) return;
             
             e.preventDefault();
             const x = e.touches[0].pageX - container.offsetLeft;
-            const walk = (x - startX) * 0.6; // Reduced for smoother feel
+            const walk = (x - startX) * 0.6;
             
             // Apply resistance at boundaries
             const maxScroll = container.scrollWidth - container.clientWidth;
             let boundedScroll = scrollLeft - walk;
             
             if (boundedScroll < 0) {
-                boundedScroll = boundedScroll * 0.3; // Resistance at start
+                boundedScroll = boundedScroll * 0.3;
             } else if (boundedScroll > maxScroll) {
                 const excess = boundedScroll - maxScroll;
-                boundedScroll = maxScroll + (excess * 0.3); // Resistance at end
+                boundedScroll = maxScroll + (excess * 0.3);
             }
             
             container.scrollLeft = boundedScroll;
@@ -91,35 +115,53 @@ class UltraSmoothScroll {
         }, { passive: false });
 
         container.addEventListener('touchend', () => {
-            if (!isDragging) return;
-            
-            isDragging = false;
-            
-            // Apply momentum scrolling
-            if (Math.abs(velocity) > 0.02) {
-                this.applyMomentum(container, velocity, animationFrame);
+            if (isDragging && isHorizontalScroll) {
+                isDragging = false;
+                isHorizontalScroll = false;
+                
+                // Apply momentum scrolling only if we were actually scrolling horizontally
+                if (Math.abs(velocity) > 0.02) {
+                    this.applyMomentum(container, velocity, animationFrame);
+                }
             }
         }, { passive: true });
 
-        // Enhanced mouse drag support
+        // Enhanced mouse drag support - only when actually dragging horizontally
         let mouseStartX = 0;
+        let mouseStartY = 0;
         let mouseScrollLeft = 0;
         let isMouseDragging = false;
+        let isMouseHorizontalScroll = false;
 
         container.addEventListener('mousedown', (e) => {
-            isMouseDragging = true;
             mouseStartX = e.pageX - container.offsetLeft;
+            mouseStartY = e.pageY - container.offsetTop;
             mouseScrollLeft = container.scrollLeft;
-            container.style.cursor = 'grabbing';
+            isMouseDragging = false;
+            isMouseHorizontalScroll = false;
+            container.style.cursor = 'grab';
             e.preventDefault();
         });
 
         container.addEventListener('mousemove', (e) => {
-            if (!isMouseDragging) return;
+            if (isMouseDragging === false) {
+                // Determine scroll direction on first move
+                const deltaX = Math.abs(e.pageX - mouseStartX);
+                const deltaY = Math.abs(e.pageY - mouseStartY);
+                
+                if (deltaX > deltaY && deltaX > 5) {
+                    isMouseHorizontalScroll = true;
+                    isMouseDragging = true;
+                } else if (deltaY > deltaX && deltaY > 5) {
+                    return; // Let vertical scroll pass through
+                }
+            }
+            
+            if (!isMouseDragging || !isMouseHorizontalScroll) return;
             
             e.preventDefault();
             const x = e.pageX - container.offsetLeft;
-            const walk = (x - mouseStartX) * 0.6; // Reduced for smoother feel
+            const walk = (x - mouseStartX) * 0.6;
             
             // Apply resistance at boundaries
             const maxScroll = container.scrollWidth - container.clientWidth;
@@ -137,11 +179,13 @@ class UltraSmoothScroll {
 
         container.addEventListener('mouseup', () => {
             isMouseDragging = false;
+            isMouseHorizontalScroll = false;
             container.style.cursor = 'grab';
         });
 
         container.addEventListener('mouseleave', () => {
             isMouseDragging = false;
+            isMouseHorizontalScroll = false;
             container.style.cursor = 'grab';
         });
 
@@ -149,22 +193,23 @@ class UltraSmoothScroll {
         container.style.cursor = 'grab';
     }
 
+    isAtScrollBoundary(container, deltaX) {
+        const isAtStart = container.scrollLeft <= 0 && deltaX < 0;
+        const isAtEnd = container.scrollLeft >= (container.scrollWidth - container.clientWidth) && deltaX > 0;
+        return isAtStart || isAtEnd;
+    }
+
     applyMomentum(container, velocity, animationFrame) {
-        const friction = 0.95; // Friction coefficient
-        const minVelocity = 0.005; // Minimum velocity to continue scrolling
+        const friction = 0.95;
+        const minVelocity = 0.005;
         
         const animate = () => {
             if (Math.abs(velocity) < minVelocity) {
-                return; // Stop animation
+                return;
             }
             
-            // Apply velocity to scroll
-            container.scrollLeft -= velocity * 30; // Adjust multiplier for feel
-            
-            // Apply friction
+            container.scrollLeft -= velocity * 30;
             velocity *= friction;
-            
-            // Continue animation
             animationFrame = requestAnimationFrame(animate);
         };
         

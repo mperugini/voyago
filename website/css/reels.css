@@ -1,21 +1,12 @@
-/* Reels Module Styles - Ultra Smooth Mobile Scroll */
+/* Reels Module Styles - Ultra Smooth Mobile Scroll with Vertical Support */
 .reels-module {
     text-align: center;
     margin-bottom: 2rem;
 }
 
-.reels-module h2 {
-    font-size: 2rem;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-}
 
-.reels-module p {
-    color: #7f8c8d;
-    font-size: 1.1rem;
-}
 
-/* Ultra smooth reels scroll container - Mobile optimized */
+/* Ultra smooth reels scroll container - Mobile optimized with vertical scroll support */
 .reels-scroll {
     display: flex;
     overflow-x: auto;
@@ -28,8 +19,8 @@
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
     
-    /* Mobile scroll optimizations */
-    touch-action: pan-x;
+    /* Mobile scroll optimizations - allow vertical scroll */
+    touch-action: pan-x pan-y; /* Allow both horizontal and vertical panning */
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     scroll-padding: 12px;
@@ -46,7 +37,7 @@
     display: none; /* Chrome, Safari, Opera */
 }
 
-/* Reel card styles - Mobile optimized */
+/* Reel card styles - Mobile optimized with vertical scroll support */
 .reel-card {
     flex: 0 0 280px; /* Fixed width */
     height: 400px;
@@ -131,10 +122,10 @@
     box-shadow: 0 3px 8px rgba(102, 126, 234, 0.4);
 }
 
-/* Enhanced mobile touch support */
+/* Enhanced mobile touch support - allow vertical scroll */
 @media (hover: none) and (pointer: coarse) {
     .reels-scroll {
-        touch-action: pan-x;
+        touch-action: pan-x pan-y; /* Allow both directions */
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         -khtml-user-select: none;
@@ -151,7 +142,7 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-        touch-action: manipulation;
+        touch-action: manipulation; /* Allow tap and pan gestures */
     }
 }
 

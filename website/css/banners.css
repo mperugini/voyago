@@ -1,4 +1,4 @@
-/* Banners Module Styles - Ultra Smooth Mobile Scroll */
+/* Banners Module Styles - Ultra Smooth Mobile Scroll with Vertical Support */
 .banners-module {
     text-align: center;
     margin-bottom: 2rem;
@@ -15,7 +15,7 @@
     font-size: 1.1rem;
 }
 
-/* Ultra smooth horizontal scroll banners - Mobile optimized */
+/* Ultra smooth horizontal scroll banners - Mobile optimized with vertical scroll support */
 .banners-horizontal-scroll {
     display: flex;
     overflow-x: auto;
@@ -28,8 +28,8 @@
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
     
-    /* Mobile scroll optimizations */
-    touch-action: pan-x;
+    /* Mobile scroll optimizations - allow vertical scroll */
+    touch-action: pan-x pan-y; /* Allow both horizontal and vertical panning */
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
     scroll-padding: 12px;
@@ -110,10 +110,10 @@
     transform: scale(1.02) translateZ(0);
 }
 
-/* Enhanced mobile touch support */
+/* Enhanced mobile touch support - allow vertical scroll */
 @media (hover: none) and (pointer: coarse) {
     .banners-horizontal-scroll {
-        touch-action: pan-x;
+        touch-action: pan-x pan-y; /* Allow both directions */
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         -khtml-user-select: none;
@@ -130,7 +130,7 @@
         -moz-user-select: none;
         -ms-user-select: none;
         user-select: none;
-        touch-action: manipulation;
+        touch-action: manipulation; /* Allow tap and pan gestures */
     }
 }
 

@@ -75,7 +75,7 @@ class ReelsModule {
 
         // Create the module structure
         this.container.innerHTML = `
-            <h2>Reels</h2>
+            <h2>Descubrí el mundo con nosotros!</h2>
             <div class="reels-scroll" id="reelsScrollContainer">
                 <!-- Reels will be loaded here -->
             </div>
