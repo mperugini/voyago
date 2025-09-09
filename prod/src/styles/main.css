@@ -1,0 +1,18 @@
+/* Main CSS Entry Point - Arolar Website */
+
+/* Base Styles */
+@import url('./base.css');
+
+/* Component Styles */
+@import url('../components/banners/banners.css');
+@import url('../components/reels/reels.css');
+
+/* Global Mobile Optimizations */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+}

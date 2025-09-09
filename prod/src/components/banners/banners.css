@@ -1,0 +1,162 @@
+/* Banners Module Styles - Ultra Smooth Mobile Scroll with Vertical Support */
+.banners-module {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.banners-module h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.banners-module p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+/* Ultra smooth horizontal scroll banners - Mobile optimized with vertical scroll support */
+.banners-horizontal-scroll {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding: 12px 0;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    
+    /* Hide scrollbars completely */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    
+    /* Mobile scroll optimizations - allow vertical scroll */
+    touch-action: pan-x pan-y; /* Allow both horizontal and vertical panning */
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 12px;
+    
+    /* Performance optimizations */
+    will-change: scroll-position;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.banners-horizontal-scroll::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.banner-item {
+    flex: 0 0 280px; /* Fixed width of 280px */
+    height: 245px;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: grab;
+    
+    /* Scroll snap */
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.banner-item:active {
+    cursor: grabbing;
+}
+
+.banner-item:hover {
+    transform: translateY(-2px) translateZ(0);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.banner-item .link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+}
+
+.banner-item .multi-banner-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.banner-item .picture {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    transition: transform 0.2s ease;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.banner-item:hover .picture {
+    transform: scale(1.02) translateZ(0);
+}
+
+/* Enhanced mobile touch support - allow vertical scroll */
+@media (hover: none) and (pointer: coarse) {
+    .banners-horizontal-scroll {
+        touch-action: pan-x pan-y; /* Allow both directions */
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .banner-item {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        touch-action: manipulation; /* Allow tap and pan gestures */
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .banner-item {
+        flex: 0 0 240px; /* Slightly smaller on mobile */
+        height: 210px;
+    }
+    
+    .banners-horizontal-scroll {
+        gap: 10px;
+        padding: 10px 0;
+        scroll-padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .banner-item {
+        flex: 0 0 200px; /* Even smaller on small mobile */
+        height: 175px;
+    }
+    
+    .banners-horizontal-scroll {
+        gap: 8px;
+        padding: 8px 0;
+        scroll-padding: 8px;
+    }
+}

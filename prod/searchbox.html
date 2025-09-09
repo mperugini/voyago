@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SearchBox - Vuelos y Hoteles</title>
+    <link rel="stylesheet" href="src/styles/searchbox.css">
+
+    
+</head>
+<body>
+    <div class="custom-search-container">
+        <!-- Header -->
+        <div class="header">
+            <button class="close-button" onclick="goBack()">✕</button>
+            <h1 class="header-title">Vuelos</h1>
+        </div>
+        
+        <div class="agency-menu-form-search-home">
+            <!-- Tab Navigation -->
+            <div class="search-tabs">
+                <div class="agency-menu-form-search-home-item agency-menu-form-search-home-item-selected" data-tab="roundtrip">
+                    <div class="agency-menu-form-search-home-text">Ida y vuelta</div>
+                </div>
+                <div class="agency-menu-form-search-home-item" data-tab="oneway">
+                    <div class="agency-menu-form-search-home-text">Solo ida</div>
+                </div>
+            </div>
+
+            <!-- Flights Search Form -->
+            <div class="search-form" id="flights-form">
+                <div class="search-form-row">
+                    <!-- Origin and Destination Container -->
+                    <div class="origin-destination-container">
+                        <div class="search-form-col">
+                            <label>Origen</label>
+                            <input type="text" id="flight-origin" placeholder="Ingresa desde donde viajas" class="search-input">
+                        </div>
+                        <div class="search-form-col">
+                            <label>Destino</label>
+                            <input type="text" id="flight-destination" placeholder="Ingresa hacia donde viajas" class="search-input">
+                        </div>
+                        <!-- Swap button -->
+                        <button class="swap-button" type="button" id="swap-locations">⇅</button>
+                    </div>
+                    
+                    <!-- Date Container -->
+                    <div class="dates-container">
+                        <div class="search-form-col">
+                            <label>Salida</label>
+                            <input type="date" id="flight-departure" class="search-input" min="" value="" placeholder="Ida">
+                        </div>
+                        <div class="search-form-col">
+                            <label>Regreso</label>
+                            <input type="date" id="flight-return" class="search-input" min="" value="">
+                        </div>
+                    </div>
+                    
+                    
+                    <!-- Passengers Container -->
+                    <div class="passengers-container">
+                        <div class="search-form-col">
+                            <label>Pasajeros</label>
+                            <input type="text" id="flight-passengers" class="search-input" placeholder="4 personas, Económica" readonly>
+                        </div>
+                    </div>
+                </div>
+                <div class="flight-type-selector">
+                    <label>
+                        <input type="radio" name="flight-type" value="roundtrip" checked> Ida y vuelta
+                    </label>
+                    <label>
+                        <input type="radio" name="flight-type" value="oneway"> Solo ida
+                    </label>
+                </div>
+                <div class="search-button-container">
+                    <button class="search-button" id="search-flights-btn">
+                        Buscar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/searchbox.js"></script>
+    
+    <script>
+        // Función para volver a la página anterior
+        function goBack() {
+            console.log('🔙 Botón close clickeado - volviendo a página anterior');
+            
+            // Verificar si hay historial para volver
+            if (window.history.length > 1) {
+                console.log('📱 Historial disponible, haciendo history.back()');
+                window.history.back();
+            } else {
+                console.log('⚠️ No hay historial, redirigiendo a home.html');
+                // Si no hay historial, redirigir a home.html
+                window.location.href = 'home.html';
+            }
+        }
+        
+        // También agregar funcionalidad de tecla Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                console.log('⌨️ Tecla Escape presionada');
+                goBack();
+            }
+        });
+        
+        // Log cuando se carga la página
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 SearchBox cargado');
+            console.log('📍 Página actual:', window.location.href);
+            console.log('📱 Historial disponible:', window.history.length);
+            
+            // Verificar parámetros de URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const productSelected = urlParams.get('productSelected');
+            if (productSelected) {
+                console.log('🎯 Producto seleccionado:', productSelected);
+            }
+        });
+    </script>
+</body>
+</html>

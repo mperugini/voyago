@@ -1,0 +1,22 @@
+{
+  "name": "arolar-website",
+  "version": "1.0.0",
+  "description": "Arolar Viajes - Website with ultra smooth mobile scroll",
+  "main": "index.html",
+  "scripts": {
+    "dev": "python -m http.server 8000",
+    "build": "echo 'Build process would go here'",
+    "lint": "echo 'Linting would go here'"
+  },
+  "keywords": [
+    "travel",
+    "website",
+    "mobile",
+    "scroll",
+    "responsive"
+  ],
+  "author": "Arolar Viajes",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {}
+}

@@ -1,0 +1,1627 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header */
+.header {
+    background: white;
+    color: white;
+    padding: 0.5rem 0;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+}
+
+.header p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Navigation */
+.nav {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.nav-btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: rgb(141, 135, 135);
+    color: #667eea;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid white;
+}
+
+.nav-btn:hover {
+    background: transparent;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.logo {
+    height: 40px;
+    display: flex;
+    align-items: center;
+}
+
+.logo img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #e46e0e;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+    color: #e22f0f;
+}
+
+/* Main Content */
+.main {
+    padding: 3rem 0;
+}
+
+
+
+/* Features Grid */
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+}
+
+.feature-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.feature-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    color: #2c3e50;
+}
+
+.feature-card p {
+    color: #7f8c8d;
+    line-height: 1.6;
+}
+
+/* Flight Carousel */
+.flight-carousel {
+    margin-bottom: 4rem;
+}
+
+.carousel-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.carousel-header h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.carousel-header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    touch-action: pan-y;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    gap: 1.5rem;
+    cursor: grab;
+}
+
+.carousel-track:active {
+    cursor: grabbing;
+}
+
+/* New SwiftUI-style Flight Card - Fixed width */
+.flight-card {
+    width: 280px;
+    background: white;
+    border-radius: 8px;
+    border: 0.5px solid rgba(222, 224, 232, 1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0; /* Prevent cards from shrinking */
+}
+
+.flight-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+
+.flight-image {
+    width: 280px;
+    height: 174px;
+    background: rgba(128, 58, 69, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    position: relative;
+    background-image: url('https://media.staticontent.com/media/pictures/57fcebe7-e3e6-4465-8f39-32d5f9f73e46');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.flight-content {
+    padding: 12px 0;
+    background: white;
+}
+
+.flight-info {
+    padding: 0 12px;
+    margin-bottom: 12px;
+}
+
+.flight-category {
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.12px;
+    line-height: 16px;
+    color: rgba(115, 120, 128, 1);
+    margin-bottom: 2px;
+}
+
+.flight-title {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 28px;
+    color: rgba(51, 51, 56, 1);
+    margin-bottom: 4px;
+}
+
+.flight-origin {
+    font-size: 14px;
+    letter-spacing: 0.01px;
+    line-height: 20px;
+    color: rgba(115, 120, 128, 1);
+    margin-bottom: 0;
+}
+
+.flight-airline {
+    font-size: 14px;
+    letter-spacing: 0.01px;
+    line-height: 20px;
+    color: rgba(115, 120, 128, 1);
+    margin-bottom: 16px;
+}
+
+.flight-badge {
+    display: inline-block;
+    padding: 4px 8px;
+    background: rgba(242, 245, 246, 1);
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    color: rgba(51, 51, 56, 1);
+    margin-bottom: 12px;
+}
+
+.flight-divider {
+    height: 0.5px;
+    background: rgba(222, 224, 232, 1);
+    margin: 0 12px 12px 12px;
+}
+
+.flight-price-section {
+    padding: 0 12px;
+}
+
+.price-label {
+    font-size: 12px;
+    line-height: 16px;
+    color: rgba(51, 51, 56, 1);
+    margin-bottom: 0;
+}
+
+.price-container {
+    display: flex;
+    flex-direction: column;
+    gap: -4px;
+}
+
+.original-price {
+    font-size: 10px;
+    text-decoration: line-through;
+    color: rgba(115, 120, 128, 1);
+    margin-bottom: -4px;
+}
+
+.current-price {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+}
+
+.currency-symbol {
+    font-size: 14px;
+    letter-spacing: 0.01px;
+    line-height: 20px;
+    color: rgba(51, 51, 56, 1);
+}
+
+.price-amount {
+    font-size: 20px;
+    font-weight: bold;
+    line-height: 28px;
+    color: rgba(51, 51, 56, 1);
+}
+
+/* CTA Section */
+.cta {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 3rem 0;
+    text-align: center;
+    border-radius: 15px;
+    margin-bottom: 4rem;
+}
+
+.cta h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.cta p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 30px;
+    background: rgb(232, 229, 229);
+    color: #667eea;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    border: 2px solid white;
+}
+
+.btn:hover {
+    background: transparent;
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* Footer */
+.footer {
+    background: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 2rem 0;
+}
+
+.footer p {
+    opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .nav-links {
+        gap: 1rem;
+    }
+
+    .header h1 {
+        font-size: 2rem;
+    }
+
+    .hero h2 {
+        font-size: 1.8rem;
+    }
+
+    .features {
+        grid-template-columns: 1fr;
+    }
+
+    .feature-card {
+        padding: 1.5rem;
+    }
+
+    /* Flight cards maintain fixed width - no changes */
+    .carousel-header h2 {
+        font-size: 1.6rem;
+    }
+
+    .cta h2 {
+        font-size: 1.6rem;
+    }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.feature-card {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.1s; }
+.feature-card:nth-child(2) { animation-delay: 0.2s; }
+.feature-card:nth-child(3) { animation-delay: 0.3s; }
+.feature-card:nth-child(4) { animation-delay: 0.4s; }
+
+
+/* Reels Section */
+.reels {
+    margin: 2rem 0;
+}
+
+.reels-scroll {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+    scrollbar-width: none;
+}
+
+.reels-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.reel-card {
+    flex: 0 0 200px;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+}
+
+.reel-card video {
+    width: 100%;
+    height: 176px;
+    object-fit: cover;
+}
+
+.reel-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    color: white;
+    padding: 1rem;
+}
+
+.reel-title {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+}
+
+.reel-cta {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
+
+/* Improved carousel performance */
+.carousel-track {
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+.carousel-container {
+    will-change: transform;
+    overflow: hidden;
+    border-radius: 15px;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Smooth scrolling improvements */
+.flight-card {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+}
+
+/* Prevent layout shifts during animation */
+.carousel-track * {
+    box-sizing: border-box;
+}
+
+/* Improved touch handling */
+@media (hover: none) and (pointer: coarse) {
+    .carousel-track {
+        touch-action: pan-x;
+    }
+}
+
+/* Enhanced carousel smoothness */
+.carousel-track {
+    will-change: transform;
+    backface-visibility: hidden;
+    perspective: 1000px;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+.carousel-container {
+    will-change: transform;
+    overflow: hidden;
+    border-radius: 15px;
+    touch-action: pan-y;
+    -webkit-overflow-scrolling: touch;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+}
+
+/* Improved touch handling for better responsiveness */
+@media (hover: none) and (pointer: coarse) {
+    .carousel-track {
+        touch-action: pan-x;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+}
+
+/* Prevent text selection during drag */
+.carousel-track * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Smooth hardware acceleration */
+.flight-card {
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.3s ease;
+}
+
+/* Improved cursor states */
+.carousel-track {
+    cursor: grab;
+}
+
+.carousel-track:active {
+    cursor: grabbing;
+}
+
+.carousel-track.dragging {
+    cursor: grabbing;
+}
+
+/* Enhanced Flight Carousel - Ultra Smooth Mobile Scroll */
+.flight-carousel {
+    margin-bottom: 4rem;
+}
+
+.carousel-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.carousel-header h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.carousel-header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 12px;
+    
+    /* Performance optimizations */
+    will-change: scroll-position;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    gap: 12px;
+    cursor: grab;
+    padding: 0 12px;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.carousel-track:active {
+    cursor: grabbing;
+}
+
+/* Enhanced Flight Card - Mobile optimized */
+.flight-card {
+    width: 280px;
+    background: white;
+    border-radius: 8px;
+    border: 0.5px solid rgba(222, 224, 232, 1);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    
+    /* Scroll snap */
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.flight-card:hover {
+    transform: translateY(-4px) translateZ(0);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.flight-image {
+    width: 280px;
+    height: 174px;
+    background: rgba(128, 58, 69, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    position: relative;
+    background-image: url('https://media.staticontent.com/media/pictures/57fcebe7-e3e6-4465-8f39-32d5f9f73e46');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Enhanced mobile touch support for carousel */
+@media (hover: none) and (pointer: coarse) {
+    .carousel-container {
+        touch-action: pan-x;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .carousel-track {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    .flight-card {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        touch-action: manipulation;
+    }
+}
+
+/* Responsive adjustments for carousel */
+@media (max-width: 768px) {
+    .flight-card {
+        width: 240px;
+    }
+    
+    .flight-image {
+        width: 240px;
+        height: 150px;
+    }
+    
+    .carousel-track {
+        gap: 10px;
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .flight-card {
+        width: 200px;
+    }
+    
+    .flight-image {
+        width: 200px;
+        height: 125px;
+    }
+    
+    .carousel-track {
+        gap: 8px;
+        padding: 0 8px;
+    }
+}
+
+/* Enhanced Flight Carousel - Ultra Smooth Mobile Scroll with Vertical Support */
+.flight-carousel {
+    margin-bottom: 4rem;
+}
+
+.carousel-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.carousel-header h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.carousel-header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    touch-action: pan-x pan-y; /* Allow both horizontal and vertical panning */
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 12px;
+    
+    /* Performance optimizations */
+    will-change: scroll-position;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    gap: 12px;
+    cursor: grab;
+    padding: 0 12px;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.carousel-track:active {
+    cursor: grabbing;
+}
+
+/* Enhanced Flight Card - Mobile optimized with vertical scroll support */
+.flight-card {
+    width: 280px;
+    background: white;
+    border-radius: 8px;
+    border: 0.5px solid rgba(222, 224, 232, 1);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    
+    /* Scroll snap */
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.flight-card:hover {
+    transform: translateY(-4px) translateZ(0);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.flight-image {
+    width: 280px;
+    height: 174px;
+    background: rgba(128, 58, 69, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    position: relative;
+    background-image: url('https://media.staticontent.com/media/pictures/57fcebe7-e3e6-4465-8f39-32d5f9f73e46');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Enhanced mobile touch support for carousel - allow vertical scroll */
+@media (hover: none) and (pointer: coarse) {
+    .carousel-container {
+        touch-action: pan-x pan-y; /* Allow both directions */
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .carousel-track {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    .flight-card {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        touch-action: manipulation; /* Allow tap and pan gestures */
+    }
+}
+
+/* Responsive adjustments for carousel */
+@media (max-width: 768px) {
+    .flight-card {
+        width: 240px;
+    }
+    
+    .flight-image {
+        width: 240px;
+        height: 150px;
+    }
+    
+    .carousel-track {
+        gap: 10px;
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .flight-card {
+        width: 200px;
+    }
+    
+    .flight-image {
+        width: 200px;
+        height: 125px;
+    }
+    
+    .carousel-track {
+        gap: 8px;
+        padding: 0 8px;
+    }
+}
+
+/* Fix for flight carousel vertical scroll */
+.carousel-container {
+    position: relative;
+    border-radius: 15px;
+    touch-action: pan-x pan-y; /* Allow both horizontal and vertical panning */
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 12px;
+    
+    /* Performance optimizations */
+    will-change: scroll-position;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Remove overflow hidden that was blocking vertical scroll */
+.carousel-container {
+    overflow: visible; /* Changed from hidden to visible */
+}
+
+/* Add overflow control to the track instead */
+.carousel-track {
+    display: flex;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    gap: 12px;
+    cursor: grab;
+    padding: 0 12px;
+    overflow-x: auto; /* Add horizontal scroll to track */
+    overflow-y: visible; /* Allow vertical scroll to pass through */
+    
+    /* Hide horizontal scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.carousel-track::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* Fix for flight carousel - restore functionality with vertical scroll support */
+.carousel-container {
+    position: relative;
+    overflow: hidden; /* Restore overflow hidden for carousel functionality */
+    border-radius: 15px;
+    touch-action: pan-x pan-y; /* Allow both horizontal and vertical panning */
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 12px;
+    
+    /* Performance optimizations */
+    will-change: scroll-position;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Restore carousel track to original functionality */
+.carousel-track {
+    display: flex;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    gap: 12px;
+    cursor: grab;
+    padding: 0 12px;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Enhanced Flight Carousel - Ultra Smooth Mobile Scroll with Vertical Support */
+.flight-carousel {
+    margin-bottom: 4rem;
+}
+
+.carousel-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.carousel-header h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.carousel-header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+.carousel-container {
+    position: relative;
+    overflow: hidden; /* Restore overflow hidden for carousel functionality */
+    border-radius: 15px;
+    touch-action: pan-x pan-y; /* Allow both horizontal and vertical panning */
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 12px;
+    
+    /* Performance optimizations */
+    will-change: scroll-position;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    gap: 12px;
+    cursor: grab;
+    padding: 0 12px;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.carousel-track:active {
+    cursor: grabbing;
+}
+
+/* Enhanced Flight Card - Mobile optimized with vertical scroll support */
+.flight-card {
+    width: 280px;
+    background: white;
+    border-radius: 8px;
+    border: 0.5px solid rgba(222, 224, 232, 1);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    
+    /* Scroll snap */
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.flight-card:hover {
+    transform: translateY(-4px) translateZ(0);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.flight-image {
+    width: 280px;
+    height: 174px;
+    background: rgba(128, 58, 69, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    position: relative;
+    background-image: url('https://media.staticontent.com/media/pictures/57fcebe7-e3e6-4465-8f39-32d5f9f73e46');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Enhanced mobile touch support for carousel - allow vertical scroll */
+@media (hover: none) and (pointer: coarse) {
+    .carousel-container {
+        touch-action: pan-x pan-y; /* Allow both directions */
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .carousel-track {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+    
+    .flight-card {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        touch-action: manipulation; /* Allow tap and pan gestures */
+    }
+}
+
+/* Responsive adjustments for carousel */
+@media (max-width: 768px) {
+    .flight-card {
+        width: 240px;
+    }
+    
+    .flight-image {
+        width: 240px;
+        height: 150px;
+    }
+    
+    .carousel-track {
+        gap: 10px;
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .flight-card {
+        width: 200px;
+    }
+    
+    .flight-image {
+        width: 200px;
+        height: 125px;
+    }
+    
+    .carousel-track {
+        gap: 8px;
+        padding: 0 8px;
+    }
+}
+
+/* Fix Flight Carousel to work like banners - Ultra Smooth Mobile Scroll */
+.flight-carousel {
+    margin-bottom: 4rem;
+}
+
+.carousel-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.carousel-header h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.carousel-header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+/* Change carousel to work like banners horizontal scroll */
+.carousel-container {
+    position: relative;
+    border-radius: 15px;
+    /* Remove overflow hidden and use same system as banners */
+}
+
+.carousel-track {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding: 12px 0;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    
+    /* Hide scrollbars completely */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    
+    /* Mobile scroll optimizations - allow vertical scroll */
+    touch-action: pan-x pan-y; /* Allow both horizontal and vertical panning */
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 12px;
+    
+    /* Performance optimizations */
+    will-change: scroll-position;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.carousel-track::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* Enhanced Flight Card - Mobile optimized with vertical scroll support */
+.flight-card {
+    width: 280px;
+    background: white;
+    border-radius: 8px;
+    border: 0.5px solid rgba(222, 224, 232, 1);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    
+    /* Scroll snap */
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.flight-card:hover {
+    transform: translateY(-4px) translateZ(0);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.flight-image {
+    width: 280px;
+    height: 174px;
+    background: rgba(128, 58, 69, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    position: relative;
+    background-image: url('https://media.staticontent.com/media/pictures/57fcebe7-e3e6-4465-8f39-32d5f9f73e46');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Enhanced mobile touch support for carousel - allow vertical scroll */
+@media (hover: none) and (pointer: coarse) {
+    .carousel-track {
+        touch-action: pan-x pan-y; /* Allow both directions */
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .flight-card {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        touch-action: manipulation; /* Allow tap and pan gestures */
+    }
+}
+
+/* Responsive adjustments for carousel */
+@media (max-width: 768px) {
+    .flight-card {
+        width: 240px;
+    }
+    
+    .flight-image {
+        width: 240px;
+        height: 150px;
+    }
+    
+    .carousel-track {
+        gap: 10px;
+        padding: 10px 0;
+        scroll-padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .flight-card {
+        width: 200px;
+    }
+    
+    .flight-image {
+        width: 200px;
+        height: 125px;
+    }
+    
+    .carousel-track {
+        gap: 8px;
+        padding: 8px 0;
+        scroll-padding: 8px;
+    }
+}
+
+/* Simplified Flight Carousel - Simple horizontal scroll like banners */
+.flight-carousel {
+    margin-bottom: 4rem;
+}
+
+.carousel-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.carousel-header h2 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+.carousel-header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+/* Simple horizontal scroll container - same as banners */
+.carousel-container {
+    position: relative;
+    border-radius: 15px;
+}
+
+.carousel-track {
+    display: flex;
+    overflow-x: auto;
+    gap: 12px;
+    padding: 12px 0;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    
+    /* Hide scrollbars completely */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    
+    /* Mobile scroll optimizations - allow vertical scroll */
+    touch-action: pan-x pan-y; /* Allow both horizontal and vertical panning */
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding: 12px;
+    
+    /* Performance optimizations */
+    will-change: scroll-position;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.carousel-track::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+/* Flight Card - Simple horizontal scroll */
+.flight-card {
+    flex: 0 0 280px; /* Fixed width like banners */
+    background: white;
+    border-radius: 8px;
+    border: 0.5px solid rgba(222, 224, 232, 1);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    
+    /* Scroll snap */
+    scroll-snap-align: start;
+    scroll-snap-stop: normal;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.flight-card:hover {
+    transform: translateY(-2px) translateZ(0);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+}
+
+.flight-image {
+    width: 100%;
+    height: 174px;
+    background: rgba(128, 58, 69, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    color: white;
+    position: relative;
+    background-image: url('https://media.staticontent.com/media/pictures/57fcebe7-e3e6-4465-8f39-32d5f9f73e46');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Performance optimizations */
+    will-change: transform;
+    transform: translateZ(0);
+    -webkit-transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+/* Flight content styling */
+.flight-content {
+    padding: 12px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.flight-header {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.flight-category {
+    font-size: 12px;
+    font-weight: bold;
+    color: #737a7d;
+    text-transform: uppercase;
+    letter-spacing: 0.12px;
+}
+
+.flight-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    line-height: 28px;
+}
+
+.flight-origin {
+    font-size: 14px;
+    color: #737a7d;
+    line-height: 20px;
+}
+
+.flight-airline {
+    font-size: 14px;
+    color: #737a7d;
+    line-height: 20px;
+}
+
+.flight-badge {
+    margin-top: 8px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    background: #f5f6f6;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #333;
+}
+
+.flight-footer {
+    padding: 12px;
+    border-top: 0.5px solid #dee0e8;
+}
+
+.price-section {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.price-label {
+    font-size: 12px;
+    color: #333;
+    line-height: 16px;
+}
+
+.price-original {
+    font-size: 10px;
+    color: #737a7d;
+    text-decoration: line-through;
+    line-height: 16px;
+}
+
+.price-current {
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+}
+
+.currency {
+    font-size: 14px;
+    color: #333;
+    line-height: 20px;
+}
+
+.amount {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+    line-height: 28px;
+}
+
+/* Enhanced mobile touch support - same as banners */
+@media (hover: none) and (pointer: coarse) {
+    .carousel-track {
+        touch-action: pan-x pan-y; /* Allow both directions */
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-overflow-scrolling: touch;
+    }
+    
+    .flight-card {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        touch-action: manipulation; /* Allow tap and pan gestures */
+    }
+}
+
+/* Responsive adjustments - same as banners */
+@media (max-width: 768px) {
+    .flight-card {
+        flex: 0 0 240px; /* Slightly smaller on mobile */
+    }
+    
+    .carousel-track {
+        gap: 10px;
+        padding: 10px 0;
+        scroll-padding: 10px;
+    }
+    
+    .flight-image {
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .flight-card {
+        flex: 0 0 200px; /* Even smaller on small mobile */
+    }
+    
+    .carousel-track {
+        gap: 8px;
+        padding: 8px 0;
+        scroll-padding: 8px;
+    }
+    
+    .flight-image {
+        height: 125px;
+    }
+}
